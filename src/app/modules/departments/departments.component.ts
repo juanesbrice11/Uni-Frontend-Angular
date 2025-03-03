@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -15,19 +16,30 @@ export class DepartmentsComponent {
 
   department = { name: '' };
 
-  constructor(private http: HttpClient) {} 
+  constructor(private authService: AuthService, private http: HttpClient) {} 
 
   saveDepartment() {
-    this.http.post(this.apiUrl, this.department).subscribe({
-      next: (response) => {
-        console.log('Departamento guardado:', response);
-        alert('Departamento guardado con éxito');
-        this.department = { name: '' };
-      },
-      error: (error) => {
-        console.error('Error al guardar:', error);
-        alert('Error al guardar el departamento');
-      }
+    const token = this.authService.getToken();
+    console.log('Token enviado en la petición:', token);
+
+    if (!token) {
+        alert('No tienes permisos para realizar esta acción');
+        return;
+    }
+
+    this.http.post(this.apiUrl, this.department, {
+        headers: { Authorization: `Bearer ${token}` }
+    }).subscribe({
+        next: (response) => {
+            console.log('Departamento guardado:', response);
+            alert('Departamento guardado con éxito');
+            this.department = { name: '' };
+        },
+        error: (error) => {
+            console.error('Error al guardar:', error);
+            alert('Error al guardar el departamento');
+        }
     });
-  }
+}
+
 }

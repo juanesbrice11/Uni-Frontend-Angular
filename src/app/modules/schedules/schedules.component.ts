@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-schedules',
@@ -11,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SchedulesComponent {
 
-  constructor(private http: HttpClient) {}
+  constructor(private authService: AuthService, private http: HttpClient) {}
 
   apiUrl = 'http://localhost:3000/schedules';
   coursesUrl = 'http://localhost:3000/courses'; 
@@ -36,18 +37,26 @@ export class SchedulesComponent {
   }
 
   saveSchedule() {
-    console.log('Horario guardado:', this.schedule);
+    const token = this.authService.getToken();
+    console.log('Token enviado en la petición:', token);
 
-    this.http.post(this.apiUrl, this.schedule).subscribe({
-      next: (response) => {
-        console.log('Horario guardado:', response);
-        alert('Horario guardado con éxito');
-        this.schedule = { day: '', startTime: '', endTime: '', courseId:'' };
-      },
-      error: (error) => {
-        console.error('Error al guardar:', error);
-        alert('Error al guardar el horario');
-      }
+    if (!token) {
+        alert('No tienes permisos para realizar esta acción');
+        return;
+    }
+
+    this.http.post(this.apiUrl, this.schedule, {
+        headers: { Authorization: `Bearer ${token}` }
+    }).subscribe({
+        next: (response) => {
+            console.log('Horario guardado:', response);
+            alert('Horario guardado con éxito');
+            this.schedule = { day: '', startTime: '', endTime: '', courseId: '' };
+        },
+        error: (error) => {
+            console.error('Error al guardar:', error);
+            alert('Error al guardar el horario');
+        }
     });
   }
 

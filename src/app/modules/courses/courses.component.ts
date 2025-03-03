@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-courses',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class CoursesComponent implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private authService: AuthService, private http: HttpClient) {}
 
   apiUrl = 'http://localhost:3000/courses'; 
   prerequisitesUrl = 'http://localhost:3000/courses';
@@ -62,22 +63,33 @@ export class CoursesComponent implements OnInit {
   }
 
   saveCourse() {
-    console.log('Curso guardado:', this.course);
+    const token = this.authService.getToken(); 
+    console.log('Token enviado en la petición:', token);
 
-    this.http.post(this.apiUrl, this.course).subscribe({
-      next: (response) => {
-        console.log('Curso guardado:', response);
-        alert('Curso guardado con éxito');
-        this.course = { name: '', description: '', professorId: '', prerequisiteIds: [] };
-      },
-      error: (error) => {
-        console.error('Error al guardar el curso:', error);
-        alert('Error al guardar el curso');
-      }
+    if (!token) {
+        alert('No tienes permisos para realizar esta acción');
+        return;
+    }
+
+    this.http.post(this.apiUrl, this.course, {
+        headers: { Authorization: `Bearer ${token}` }
+    }).subscribe({
+        next: (response) => {
+            console.log('Curso guardado:', response);
+            alert('Curso guardado con éxito');
+            this.course = { name: '', description: '', professorId: '', prerequisiteIds: [] };
+        },
+        error: (error) => {
+            console.error('Error al guardar el curso:', error);
+            alert('Error al guardar el curso');
+        }
     });
-  }
+}
+
 
   goToCourses() {
     this.router.navigate(['/courses-list']);
   }
+
+  
 }

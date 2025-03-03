@@ -1,25 +1,52 @@
 <div class="p-4">
-        <h2 class="text-lg font-semibold mb-4">Lista de Cursos</h2>
-    
-        <table class="border w-full text-left">
+    <h2 class="text-lg font-semibold mb-4">Lista de Cursos</h2>
+
+    <table class="border w-full text-left">
         <thead>
             <tr>
-            <th class="border p-2">ID</th>
-            <th class="border p-2">Nombre</th>
-            <th class="border p-2">Profesor</th>
-            <th class="border p-2">Acciones</th>
+                <th class="border p-2">ID</th>
+                <th class="border p-2">Nombre</th>
+                <th class="border p-2">Profesor</th>
+                <th class="border p-2">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let course of courses">
-            <td class="border p-2">{{ course.id }}</td>
-            <td class="border p-2">{{ course.name }}</td>
-            <td class="border p-2">{{ course.professor?.name }}</td>
-            <td class="border p-2 flex gap-2">
-                <button (click)="editCourse(course.id)" class="bg-yellow-500 text-white px-3 py-1 rounded">Editar</button>
-                <button (click)="deleteCourse(course.id)" class="bg-red-500 text-white px-3 py-1 rounded">Eliminar</button>
-            </td>
+                <td class="border p-2">{{ course.id }}</td>
+                <td class="border p-2">{{ course.name }}</td>
+                <td class="border p-2">{{ course.professor?.name }}</td>
+                <td class="border p-2 flex gap-2">
+                    <button (click)="editCourse(course)" class="bg-yellow-500 text-white px-3 py-1 rounded">
+                        Editar
+                    </button>
+                    <button (click)="deleteCourse(course.id)" class="bg-red-500 text-white px-3 py-1 rounded">
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+
+            <tr *ngIf="selectedCourse">
+                <td colspan="4">
+                    <div class="bg-gray-100 p-4 rounded-lg mt-2">
+                        <h3 class="text-lg font-semibold mb-2">Editar Curso</h3>
+
+                        <label class="block mb-2">Nombre</label>
+                        <input type="text" [(ngModel)]="selectedCourse.name" class="border p-2 w-full mb-4" />
+
+                        <label class="block mb-2">Profesor</label>
+                        <input type="text" [(ngModel)]="selectedCourse.professor" class="border p-2 w-full mb-4" />
+
+                        <div class="flex justify-end gap-2">
+                            <button (click)="updateCourse(selectedCourse)" class="bg-green-500 text-white px-4 py-2 rounded">
+                                Guardar
+                            </button>
+                            <button (click)="closeEdit()" class="bg-gray-500 text-white px-4 py-2 rounded">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </tbody>
-        </table>
+    </table>
 </div>

@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-enrollments',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './enrollments.component.html',
+    selector: 'app-enrollments',
+    standalone: true,
+    imports: [CommonModule, FormsModule],
+    templateUrl: './enrollments.component.html',
 })
 export class EnrollmentsComponent implements OnInit {
     apiUrl = 'http://localhost:3000/enrollments'; 
@@ -18,7 +19,7 @@ export class EnrollmentsComponent implements OnInit {
     students: any[] = []; 
     courses: any[] = []; 
 
-    constructor(private http: HttpClient) {}
+    constructor(private authService: AuthService, private http: HttpClient) {}
 
     ngOnInit() {
         this.loadStudents();
@@ -48,9 +49,17 @@ export class EnrollmentsComponent implements OnInit {
     }
 
     saveEnrollment() {
-        console.log('Inscripción creada correctamente', this.enrollment);
-
-        this.http.post(this.apiUrl, this.enrollment).subscribe({
+        const token = this.authService.getToken();
+        console.log('Token enviado en la petición:', token);
+    
+        if (!token) {
+            alert('No tienes permisos para realizar esta acción');
+            return;
+        }
+    
+        this.http.post(this.apiUrl, this.enrollment, {
+            headers: { Authorization: `Bearer ${token}` }
+        }).subscribe({
             next: (response) => {
                 console.log('Inscripción guardada:', response);
                 alert('Inscripción guardada con éxito');
@@ -62,4 +71,5 @@ export class EnrollmentsComponent implements OnInit {
             }
         });
     }
+    
 }
