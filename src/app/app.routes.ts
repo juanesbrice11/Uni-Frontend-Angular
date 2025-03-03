@@ -15,6 +15,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { CoursesListComponent } from './modules/courses/courses-list.component';
 import { StudentsListComponent } from './modules/students/students-list.component';
 import { EnrollmentsListComponent } from './modules/enrollments/enrollments-list.component';
+import { CourseEditComponent } from './modules/courses/course-edit.component';
 
 export const routes: Routes = [
 
@@ -22,7 +23,7 @@ export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  
+  { path: 'course-edit/:id', component: CourseEditComponent },
   { path: 'students', component: StudentsComponent, canActivate: [AuthGuard] },
   { path: 'students-list', component: StudentsListComponent, canActivate: [AuthGuard] },
   { path: 'assessments', component: AssessmentsComponent, canActivate: [AuthGuard] },

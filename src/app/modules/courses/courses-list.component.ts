@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-courses-list',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, RouterModule],
     templateUrl: './courses-list.component.html'
 })
 export class CoursesListComponent implements OnInit {
@@ -85,16 +86,13 @@ export class CoursesListComponent implements OnInit {
     }
 
     editCourse(course: any) {
-        const professor = this.professors.find(p => p.id === course.professorId);
-        this.selectedCourse = { 
-            ...course, 
-            professorName: professor ? professor.name : 'No asignado' 
-        };
+        this.router.navigate(['/course-edit', course.id]);  
     }
+    
 
     updateCourse(updatedCourse: any) {
         const token = this.authService.getToken();
-        
+    
         if (!token) {
             alert('No tienes permisos para editar este curso');
             return;
@@ -114,8 +112,11 @@ export class CoursesListComponent implements OnInit {
             }
         });
     }
+    
 
     closeEdit() {
         this.selectedCourse = null;
     }
+
+    
 }
