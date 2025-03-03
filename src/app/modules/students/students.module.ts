@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { StudentsRoutingModule } from './students-routing.module';
-import { StudentsComponent } from './students.component'; // <-- IMPORTAR AQUÍ
+import { StudentsComponent } from './students.component'; 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     StudentsRoutingModule,
-    StudentsComponent // <-- IMPORTAR AQUÍ EN LUGAR DE DECLARARLO
+    StudentsComponent 
   ]
 })
 export class StudentsModule { }

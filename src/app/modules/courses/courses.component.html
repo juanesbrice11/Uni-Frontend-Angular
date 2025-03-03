@@ -1,1 +1,10 @@
-<p>courses works!</p>
+<div class="flex flex-col items-center justify-center">
+        <p class="mb-4 text-lg font-semibold">Creación de un curso:</p>
+    
+    <form (ngSubmit)="saveCourse()" class="w-80 flex flex-col gap-4">
+        <input type="text" [(ngModel)]="course.name" name="course" placeholder="ID" required class="border p-2 rounded w-full mb-4" />
+        <input type="text" [(ngModel)]="course.description" name="name" placeholder="Nombre" required class="border p-2 rounded w-full mb-4" />
+        <input type="date" [(ngModel)]="course.professorId" name="date" required class="border p-2 rounded w-full mb-4" />
+        <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full">Guardar Curso</button>
+    </form>
+</div>
