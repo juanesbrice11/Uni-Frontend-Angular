@@ -4,24 +4,8 @@
     <label class="block mb-2">Nombre</label>
     <input type="text" [(ngModel)]="student.name" class="border p-2 w-full mb-4" />
 
-    <label class="block mb-2">Edad</label>
-    <input type="number" [(ngModel)]="student.age" class="border p-2 w-full mb-4" />
-
-    <label class="block mb-2">Correo Electrónico</label>
-    <input type="email" [(ngModel)]="student.email" class="border p-2 w-full mb-4" />
-
-    <p class="mb-2 text-sm font-medium">Seleccione los cursos:</p>
-    <div class="flex flex-wrap gap-2 mb-4">
-        <label *ngFor="let course of courses" class="flex items-center space-x-2">
-            <input 
-                type="checkbox" 
-                [value]="course.id" 
-                (change)="toggleCourse(course.id)" 
-                [checked]="student.courses.includes(course.id)" 
-            />
-            <span>{{ course.name }}</span>
-        </label>
-    </div>
+    <label class="block mb-2">Fecha de Nacimiento</label>
+    <input type="date" [(ngModel)]="student.birthDate" class="border p-2 w-full mb-4" />
 
     <div class="flex justify-end gap-2">
         <button (click)="saveChanges()" class="bg-green-500 text-white px-4 py-2 rounded">

@@ -12,8 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class StudentEditComponent implements OnInit {
     apiUrl = 'http://localhost:3000/students';
-    student: any = { name: '', age: null, email: '', courses: [] };
-    courses: any[] = [];
+    student: any = { studentId: '', name: '', birthDate: '' };
 
     constructor(
         private route: ActivatedRoute,
@@ -25,7 +24,6 @@ export class StudentEditComponent implements OnInit {
         const studentId = this.route.snapshot.paramMap.get('id');
         if (studentId) {
             this.loadStudent(studentId);
-            this.loadCourses();
         }
     }
 
@@ -42,26 +40,9 @@ export class StudentEditComponent implements OnInit {
         this.http.get<any>(`${this.apiUrl}/${id}`).subscribe({
             next: (data) => {
                 this.student = data;
-                this.student.courses = this.student.courses || [];
             },
             error: (error) => console.error('Error al cargar el estudiante:', error)
         });
-    }
-
-    loadCourses() {
-        this.http.get<any[]>('http://localhost:3000/courses').subscribe({
-            next: (data) => (this.courses = data),
-            error: (error) => console.error('Error al cargar cursos:', error)
-        });
-    }
-
-    toggleCourse(id: number) {
-        const index = this.student.courses.indexOf(id);
-        if (index === -1) {
-            this.student.courses.push(id);
-        } else {
-            this.student.courses.splice(index, 1);
-        }
     }
 
     saveChanges() {
@@ -71,18 +52,26 @@ export class StudentEditComponent implements OnInit {
             alert('No tienes permisos para editar este estudiante');
             return;
         }
-
-        this.http.patch(`${this.apiUrl}/${this.student.id}`, this.student, this.getHeaders()).subscribe({
-            next: () => {
-                alert('Estudiante actualizado con éxito');
-                this.router.navigate(['/students']);
-            },
-            error: (error) => {
-                console.error('Error al actualizar el estudiante:', error);
-                alert('Error al actualizar el estudiante');
-            }
-        });
+    
+        const updateData = {
+            studentId: this.student.studentId,
+            name: this.student.name,
+            birthDate: this.student.birthDate
+        };
+    
+        this.http.patch(`${this.apiUrl}/${this.student.studentId}`, updateData, this.getHeaders())
+            .subscribe({
+                next: () => {
+                    alert('Estudiante actualizado con éxito');
+                    this.router.navigate(['/students']);
+                },
+                error: (error) => {
+                    console.error('Error al actualizar el estudiante:', error);
+                    alert('Error al actualizar el estudiante');
+                }
+            });
     }
+    
 
     cancel() {
         this.router.navigate(['/students']);
