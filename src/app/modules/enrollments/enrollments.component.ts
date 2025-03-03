@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-enrollments',
@@ -19,7 +20,7 @@ export class EnrollmentsComponent implements OnInit {
     students: any[] = []; 
     courses: any[] = []; 
 
-    constructor(private authService: AuthService, private http: HttpClient) {}
+    constructor(private router: Router, private authService: AuthService, private http: HttpClient) {}
 
     ngOnInit() {
         this.loadStudents();
@@ -72,4 +73,8 @@ export class EnrollmentsComponent implements OnInit {
         });
     }
     
+
+    goToEnrollments() {
+        this.router.navigate(['/enrollments-list']);
+      }
 }

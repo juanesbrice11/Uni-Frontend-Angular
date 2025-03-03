@@ -1,0 +1,52 @@
+<div class="p-4">
+    <h2 class="text-lg font-semibold mb-4">Lista de Estudiantes</h2>
+
+    <table class="border w-full text-left">
+        <thead>
+            <tr>
+                <th class="border p-2">ID</th>
+                <th class="border p-2">Nombre</th>
+                <th class="border p-2">Fecha de Nacimiento</th>
+                <th class="border p-2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let student of students">
+                <td class="border p-2">{{ student.studentId }}</td>
+                <td class="border p-2">{{ student.name }}</td>
+                <td class="border p-2">{{ student.birthDate }}</td>
+                <td class="border p-2 flex gap-2">
+                    <button (click)="editStudent(student)" class="bg-yellow-500 text-white px-3 py-1 rounded">
+                        Editar
+                    </button>
+                    <button (click)="deleteStudent(student.studentId)" class="bg-red-500 text-white px-3 py-1 rounded">
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+
+            <tr *ngIf="selectedStudent">
+                <td colspan="4">
+                    <div class="bg-gray-100 p-4 rounded-lg mt-2">
+                        <h3 class="text-lg font-semibold mb-2">Editar Estudiante</h3>
+
+                        <label class="block mb-2">Nombre</label>
+                        <input type="text" [(ngModel)]="selectedStudent.name" class="border p-2 w-full mb-4" />
+
+                        <label class="block mb-2">Fecha de Nacimiento</label>
+                        <input type="date" [(ngModel)]="selectedStudent.birthDate" class="border p-2 w-full mb-4" />
+
+                        <div class="flex justify-end gap-2">
+                            <button (click)="updateStudent(selectedStudent)" class="bg-green-500 text-white px-4 py-2 rounded">
+                                Guardar
+                            </button>
+                            <button (click)="closeEdit()" class="bg-gray-500 text-white px-4 py-2 rounded">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

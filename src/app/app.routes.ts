@@ -13,6 +13,8 @@ import { LoginComponent } from './modules/auth/login/login.component';
 import { RegisterComponent } from './modules/auth/register/register.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CoursesListComponent } from './modules/courses/courses-list.component';
+import { StudentsListComponent } from './modules/students/students-list.component';
+import { EnrollmentsListComponent } from './modules/enrollments/enrollments-list.component';
 
 export const routes: Routes = [
 
@@ -22,12 +24,14 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   
   { path: 'students', component: StudentsComponent, canActivate: [AuthGuard] },
+  { path: 'students-list', component: StudentsListComponent, canActivate: [AuthGuard] },
   { path: 'assessments', component: AssessmentsComponent, canActivate: [AuthGuard] },
   { path: 'courses', component: CoursesComponent, canActivate: [AuthGuard] }, 
-  { path: 'courses-list', component: CoursesListComponent },
-  { path: 'department', component: DepartmentsComponent, canActivate: [AuthGuard] },
-  { path: 'professor', component: ProfessorsComponent, canActivate: [AuthGuard] }, 
+  { path: 'courses-list', component: CoursesListComponent, canActivate: [AuthGuard] },
+  { path: 'departments', component: DepartmentsComponent, canActivate: [AuthGuard] },
+  { path: 'professors', component: ProfessorsComponent, canActivate: [AuthGuard] }, 
   { path: 'enrollments', component: EnrollmentsComponent, canActivate: [AuthGuard] }, 
+  { path: 'enrollments-list', component: EnrollmentsListComponent, canActivate: [AuthGuard] },
   { path: 'grades', component: GradesComponent, canActivate: [AuthGuard] }, 
   { path: 'schedules', component: SchedulesComponent, canActivate: [AuthGuard] }, 
   { path: '**', redirectTo: '/login' }, 

@@ -6,5 +6,7 @@
         <input type="text" [(ngModel)]="student.name" name="name" placeholder="Nombre" required class="border p-2 rounded w-full mb-4" />
         <input type="date" [(ngModel)]="student.birthDate" name="birthDate" required class="border p-2 rounded w-full mb-4" />
         <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full">Guardar Estudiante</button>
+        <button (click)="goToStudents()" class="bg-green-500 text-white p-2 rounded w-full mt-4">Ver Estudiantes</button>
+        
     </form>
 </div>
