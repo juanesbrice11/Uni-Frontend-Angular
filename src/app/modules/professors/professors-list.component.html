@@ -1,0 +1,57 @@
+<div class="p-4">
+    <h2 class="text-lg font-semibold mb-4">Lista de Profesores</h2>
+
+    <table class="border w-full text-left">
+        <thead>
+            <tr>
+                <th class="border p-2">ID</th>
+                <th class="border p-2">Nombre</th>
+                <th class="border p-2">Fecha de Contratación</th>
+                <th class="border p-2">Departamento</th>
+                <th class="border p-2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let professor of professors">
+                <td class="border p-2">{{ professor.id }}</td>
+                <td class="border p-2">{{ professor.name }}</td>
+                <td class="border p-2">{{ professor.hireDate }}</td>
+                <td class="border p-2">{{ getDepartmentName(professor.departmentId) }}</td>
+                <td class="border p-2 flex gap-2">
+                    <button (click)="editProfessor(professor)" class="bg-yellow-500 text-white px-3 py-1 rounded">
+                        Editar
+                    </button>
+                    <button (click)="deleteProfessor(professor.id)" class="bg-red-500 text-white px-3 py-1 rounded">
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="selectedProfessor" class="bg-gray-100 p-4 rounded-lg mt-4">
+        <h3 class="text-lg font-semibold mb-2">Editar Profesor</h3>
+
+        <label class="block mb-2">Nombre</label>
+        <input type="text" [(ngModel)]="selectedProfessor.name" class="border p-2 w-full mb-4" />
+
+        <label class="block mb-2">Fecha de Contratación</label>
+        <input type="date" [(ngModel)]="selectedProfessor.hireDate" class="border p-2 w-full mb-4" />
+
+        <label class="block mb-2">Departamento</label>
+        <select [(ngModel)]="selectedProfessor.departmentId" class="border p-2 w-full mb-4">
+            <option *ngFor="let department of departments" [value]="department.id">
+                {{ department.name }}
+            </option>
+        </select>
+
+        <div class="flex justify-end gap-2">
+            <button (click)="updateProfessor()" class="bg-green-500 text-white px-4 py-2 rounded">
+                Guardar
+            </button>
+            <button (click)="closeEdit()" class="bg-gray-500 text-white px-4 py-2 rounded">
+                Cancelar
+            </button>
+        </div>
+    </div>
+</div>

@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-professors',
@@ -16,7 +17,7 @@ export class ProfessorsComponent implements OnInit {
   professor = { name: '', hireDate: '', departmentId: '' };
   departments: any[] = []; 
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit() {
     this.loadDepartments();
@@ -56,5 +57,9 @@ export class ProfessorsComponent implements OnInit {
         }
     });
 }
+
+  goToProfessors() {
+      this.router.navigate(['/professors-list']);
+    }
 
 }

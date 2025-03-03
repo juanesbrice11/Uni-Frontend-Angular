@@ -1,0 +1,90 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'app-student-edit',
+    standalone: true,
+    imports: [FormsModule, CommonModule],
+    templateUrl: './students-edit.component.html'
+})
+export class StudentEditComponent implements OnInit {
+    apiUrl = 'http://localhost:3000/students';
+    student: any = { name: '', age: null, email: '', courses: [] };
+    courses: any[] = [];
+
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private http: HttpClient
+    ) {}
+
+    ngOnInit() {
+        const studentId = this.route.snapshot.paramMap.get('id');
+        if (studentId) {
+            this.loadStudent(studentId);
+            this.loadCourses();
+        }
+    }
+
+    getHeaders() {
+        const token = localStorage.getItem('token');
+        return {
+            headers: new HttpHeaders({
+                Authorization: `Bearer ${token}`
+            })
+        };
+    }
+
+    loadStudent(id: string) {
+        this.http.get<any>(`${this.apiUrl}/${id}`).subscribe({
+            next: (data) => {
+                this.student = data;
+                this.student.courses = this.student.courses || [];
+            },
+            error: (error) => console.error('Error al cargar el estudiante:', error)
+        });
+    }
+
+    loadCourses() {
+        this.http.get<any[]>('http://localhost:3000/courses').subscribe({
+            next: (data) => (this.courses = data),
+            error: (error) => console.error('Error al cargar cursos:', error)
+        });
+    }
+
+    toggleCourse(id: number) {
+        const index = this.student.courses.indexOf(id);
+        if (index === -1) {
+            this.student.courses.push(id);
+        } else {
+            this.student.courses.splice(index, 1);
+        }
+    }
+
+    saveChanges() {
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+            alert('No tienes permisos para editar este estudiante');
+            return;
+        }
+
+        this.http.patch(`${this.apiUrl}/${this.student.id}`, this.student, this.getHeaders()).subscribe({
+            next: () => {
+                alert('Estudiante actualizado con éxito');
+                this.router.navigate(['/students']);
+            },
+            error: (error) => {
+                console.error('Error al actualizar el estudiante:', error);
+                alert('Error al actualizar el estudiante');
+            }
+        });
+    }
+
+    cancel() {
+        this.router.navigate(['/students']);
+    }
+}

@@ -20,19 +20,14 @@ export class EnrollmentsListComponent implements OnInit {
     courses: any[] = [];
     selectedEnrollment: any = null;
 
-    constructor(
-        private http: HttpClient, 
-        private authService: AuthService
-    ) {}
+    constructor(private http: HttpClient, private authService: AuthService) {}
 
     ngOnInit() {
         this.loadEnrollments();
-        this.loadStudents();
-        this.loadCourses();
     }
 
     getHeaders() {
-        const token = this.authService.getToken(); 
+        const token = this.authService.getToken();
         return {
             headers: new HttpHeaders({
                 Authorization: `Bearer ${token}`
@@ -55,7 +50,6 @@ export class EnrollmentsListComponent implements OnInit {
         this.http.get<any[]>(this.studentsUrl, this.getHeaders()).subscribe({
             next: (data) => {
                 this.students = data;
-                console.log('Estudiantes cargados:', this.students);
             },
             error: (error) => {
                 console.error('Error al cargar estudiantes:', error);
@@ -67,24 +61,12 @@ export class EnrollmentsListComponent implements OnInit {
         this.http.get<any[]>(this.coursesUrl, this.getHeaders()).subscribe({
             next: (data) => {
                 this.courses = data;
-                console.log('Cursos cargados:', this.courses);
             },
             error: (error) => {
                 console.error('Error al cargar cursos:', error);
             }
         });
     }
-
-    getStudentName(studentId: any): string {
-        const student = this.students.find(s => String(s.studentId) === String(studentId));
-        return student ? student.name : 'Desconocido';
-    }
-    
-    getCourseName(courseId: any): string {
-        const course = this.courses.find(c => String(c.id) === String(courseId));
-        return course ? course.name : 'Desconocido';
-    }
-    
 
     deleteEnrollment(id: number) {
         if (confirm('¿Estás seguro de eliminar esta inscripción?')) {
@@ -103,10 +85,12 @@ export class EnrollmentsListComponent implements OnInit {
 
     editEnrollment(enrollment: any) {
         this.selectedEnrollment = { ...enrollment };
+        this.loadStudents();
+        this.loadCourses();
     }
 
-    updateEnrollment(updatedEnrollment: any) {
-        this.http.put(`${this.apiUrl}/${updatedEnrollment.id}`, updatedEnrollment, this.getHeaders()).subscribe({
+    updateEnrollment() {
+        this.http.put(`${this.apiUrl}/${this.selectedEnrollment.id}`, this.selectedEnrollment, this.getHeaders()).subscribe({
             next: () => {
                 alert('Inscripción actualizada con éxito');
                 this.loadEnrollments();

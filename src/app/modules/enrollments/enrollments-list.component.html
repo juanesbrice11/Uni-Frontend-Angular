@@ -8,15 +8,17 @@
                 <th class="border p-2">Estudiante</th>
                 <th class="border p-2">Curso</th>
                 <th class="border p-2">Fecha de Inscripción</th>
+                <th class="border p-2">Nota Final</th>
                 <th class="border p-2">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let enrollment of enrollments">
                 <td class="border p-2">{{ enrollment.id }}</td>
-                <td class="border p-2">{{ getStudentName(enrollment.studentId) }}</td>
-                <td class="border p-2">{{ getCourseName(enrollment.courseId) }}</td>
+                <td class="border p-2">{{ enrollment.student?.name || 'Desconocido' }}</td>
+                <td class="border p-2">{{ enrollment.course?.name || 'Desconocido' }}</td>
                 <td class="border p-2">{{ enrollment.enrollmentDate }}</td>
+                <td class="border p-2">{{ enrollment.finalGrade ?? 'N/A' }}</td>
                 <td class="border p-2 flex gap-2">
                     <button (click)="editEnrollment(enrollment)" class="bg-yellow-500 text-white px-3 py-1 rounded">
                         Editar
@@ -26,40 +28,39 @@
                     </button>
                 </td>
             </tr>
-
-            <tr *ngIf="selectedEnrollment">
-                <td colspan="5">
-                    <div class="bg-gray-100 p-4 rounded-lg mt-2">
-                        <h3 class="text-lg font-semibold mb-2">Editar Inscripción</h3>
-
-                        <label class="block mb-2">Estudiante</label>
-                        <select [(ngModel)]="selectedEnrollment.studentId" class="border p-2 w-full mb-4">
-                            <option *ngFor="let student of students" [value]="student.studentId">
-                                {{ student.name }}
-                            </option>
-                        </select>
-
-                        <label class="block mb-2">Curso</label>
-                        <select [(ngModel)]="selectedEnrollment.courseId" class="border p-2 w-full mb-4">
-                            <option *ngFor="let course of courses" [value]="course.id">
-                                {{ course.name }}
-                            </option>
-                        </select>
-
-                        <label class="block mb-2">Fecha de Inscripción</label>
-                        <input type="date" [(ngModel)]="selectedEnrollment.enrollmentDate" class="border p-2 w-full mb-4" />
-
-                        <div class="flex justify-end gap-2">
-                            <button (click)="updateEnrollment(selectedEnrollment)" class="bg-green-500 text-white px-4 py-2 rounded">
-                                Guardar
-                            </button>
-                            <button (click)="closeEdit()" class="bg-gray-500 text-white px-4 py-2 rounded">
-                                Cancelar
-                            </button>
-                        </div>
-                    </div>
-                </td>
-            </tr>
         </tbody>
     </table>
+
+    <div *ngIf="selectedEnrollment" class="bg-gray-100 p-4 rounded-lg mt-4">
+        <h3 class="text-lg font-semibold mb-2">Editar Inscripción</h3>
+
+        <label class="block mb-2">Estudiante</label>
+        <select [(ngModel)]="selectedEnrollment.student.id" class="border p-2 w-full mb-4">
+            <option *ngFor="let student of students" [value]="student.id">
+                {{ student.name }}
+            </option>
+        </select>
+
+        <label class="block mb-2">Curso</label>
+        <select [(ngModel)]="selectedEnrollment.course.id" class="border p-2 w-full mb-4">
+            <option *ngFor="let course of courses" [value]="course.id">
+                {{ course.name }}
+            </option>
+        </select>
+
+        <label class="block mb-2">Fecha de Inscripción</label>
+        <input type="date" [(ngModel)]="selectedEnrollment.enrollmentDate" class="border p-2 w-full mb-4" />
+
+        <label class="block mb-2">Nota Final</label>
+        <input type="number" [(ngModel)]="selectedEnrollment.finalGrade" class="border p-2 w-full mb-4" />
+
+        <div class="flex justify-end gap-2">
+            <button (click)="updateEnrollment()" class="bg-green-500 text-white px-4 py-2 rounded">
+                Guardar
+            </button>
+            <button (click)="closeEdit()" class="bg-gray-500 text-white px-4 py-2 rounded">
+                Cancelar
+            </button>
+        </div>
+    </div>
 </div>

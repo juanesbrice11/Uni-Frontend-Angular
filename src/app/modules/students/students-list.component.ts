@@ -69,21 +69,29 @@ export class StudentsListComponent implements OnInit {
     }
 
     editStudent(student: any) {
-        this.selectedStudent = { ...student };
+        this.router.navigate(['/student-edit', student.id]);  
     }
 
     updateStudent(updatedStudent: any) {
         const token = this.authService.getToken();
-        
+    
         if (!token) {
             alert('No tienes permisos para editar este estudiante');
             return;
         }
     
-        this.http.put(`${this.apiUrl}/${updatedStudent.studentId}`, updatedStudent, this.getHeaders()).subscribe({
+        if (!updatedStudent.id) { 
+            console.error('El estudiante no tiene un ID válido:', updatedStudent);
+            alert('Error: El estudiante no tiene un ID válido');
+            return;
+        }
+    
+        this.http.patch(`${this.apiUrl}/${updatedStudent.id}`, updatedStudent, {
+            headers: { Authorization: `Bearer ${token}` }
+        }).subscribe({
             next: () => {
                 alert('Estudiante actualizado con éxito');
-                this.loadStudents(); 
+                this.loadStudents();
                 this.selectedStudent = null;
             },
             error: (error) => {
@@ -92,6 +100,8 @@ export class StudentsListComponent implements OnInit {
             }
         });
     }
+    
+    
 
     closeEdit() {
         this.selectedStudent = null;
