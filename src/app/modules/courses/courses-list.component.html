@@ -1,0 +1,25 @@
+<div class="p-4">
+        <h2 class="text-lg font-semibold mb-4">Lista de Cursos</h2>
+    
+        <table class="border w-full text-left">
+        <thead>
+            <tr>
+            <th class="border p-2">ID</th>
+            <th class="border p-2">Nombre</th>
+            <th class="border p-2">Profesor</th>
+            <th class="border p-2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let course of courses">
+            <td class="border p-2">{{ course.id }}</td>
+            <td class="border p-2">{{ course.name }}</td>
+            <td class="border p-2">{{ course.professor?.name }}</td>
+            <td class="border p-2 flex gap-2">
+                <button (click)="editCourse(course.id)" class="bg-yellow-500 text-white px-3 py-1 rounded">Editar</button>
+                <button (click)="deleteCourse(course.id)" class="bg-red-500 text-white px-3 py-1 rounded">Eliminar</button>
+            </td>
+            </tr>
+        </tbody>
+        </table>
+</div>

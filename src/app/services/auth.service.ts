@@ -1,16 +1,30 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/auth/login';
+  
+  setToken(token: string): void {
+    console.log('AuthService - Guardando token en localStorage:', token);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('token', token);
+    }
+  }
 
-  constructor(private http: HttpClient) {}
+  getToken(): string | null {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      console.log('AuthService - Obteniendo token:', token);
+      return token;
+    }
+    return null;
+  }
 
-  login(email: string, password: string): Observable<any> {
-    return this.http.post(this.apiUrl, { email, password });
+  removeToken(): void {
+    console.log('AuthService - Eliminando token de localStorage');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+    }
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -11,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CoursesComponent implements OnInit {
 
-  constructor(private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
   apiUrl = 'http://localhost:3000/courses'; 
   prerequisitesUrl = 'http://localhost:3000/courses';
@@ -74,5 +75,9 @@ export class CoursesComponent implements OnInit {
         alert('Error al guardar el curso');
       }
     });
+  }
+
+  goToCourses() {
+    this.router.navigate(['/courses-list']);
   }
 }

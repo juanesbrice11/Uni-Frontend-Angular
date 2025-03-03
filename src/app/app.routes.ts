@@ -12,18 +12,19 @@ import { SchedulesComponent } from './modules/schedules/schedules.component';
 import { LoginComponent } from './modules/auth/login/login.component';
 import { RegisterComponent } from './modules/auth/register/register.component';
 import { AuthGuard } from './guards/auth.guard';
+import { CoursesListComponent } from './modules/courses/courses-list.component';
 
 export const routes: Routes = [
 
-  { path: '', redirectTo: '/students', pathMatch: 'full' },
 
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirige a login por defecto
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   
   { path: 'students', component: StudentsComponent, canActivate: [AuthGuard] },
   { path: 'assessments', component: AssessmentsComponent, canActivate: [AuthGuard] },
   { path: 'courses', component: CoursesComponent, canActivate: [AuthGuard] }, 
+  { path: 'courses-list', component: CoursesListComponent },
   { path: 'department', component: DepartmentsComponent, canActivate: [AuthGuard] },
   { path: 'professor', component: ProfessorsComponent, canActivate: [AuthGuard] }, 
   { path: 'enrollments', component: EnrollmentsComponent, canActivate: [AuthGuard] }, 
