@@ -1,0 +1,16 @@
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white p-6 rounded shadow-md w-80">
+      <h2 class="text-2xl font-bold mb-4">Iniciar Sesión</h2>
+      
+      <form (ngSubmit)="onLogin()">
+        <input type="email" [(ngModel)]="email" name="email" placeholder="Correo" class="w-full p-2 border rounded mb-2" required>
+        <input type="password" [(ngModel)]="password" name="password" placeholder="Contraseña" class="w-full p-2 border rounded mb-2" required>
+        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">Ingresar</button>
+      </form>
+
+      <p class="mt-4 text-sm">
+        ¿No tienes cuenta? 
+        <a routerLink="/register" class="text-blue-600">Regístrate</a>
+      </p>
+    </div>
+  </div>

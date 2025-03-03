@@ -10,11 +10,45 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './schedules.component.html',
 })
 export class SchedulesComponent {
-  apiUrl = 'http://localhost:3000/enrollments';
-  studentsUrl = 'http://localhost:3000/departments'; 
-  professorsUrl = 'http://localhost:3000/professors'; 
-  schedule = { studentId: '', courseId: '', enrollmentDate: '' };
-  students: any[] = []; 
+
+  constructor(private http: HttpClient) {}
+
+  apiUrl = 'http://localhost:3000/schedules';
+  coursesUrl = 'http://localhost:3000/courses'; 
+
+  schedule = { day: '', startTime: '', endTime: '', courseId:'' };
   
+  courses: any[] = [];
+
+  ngOnInit() {
+    this.loadCourses();
+  }
+
+  loadCourses() {
+    this.http.get<any[]>(this.coursesUrl).subscribe({
+      next: (data) => {
+        this.courses = data;
+      },
+      error: (error) => {
+        console.error('Error al cargar cursos:', error);
+      }
+    });
+  }
+
+  saveSchedule() {
+    console.log('Horario guardado:', this.schedule);
+
+    this.http.post(this.apiUrl, this.schedule).subscribe({
+      next: (response) => {
+        console.log('Horario guardado:', response);
+        alert('Horario guardado con éxito');
+        this.schedule = { day: '', startTime: '', endTime: '', courseId:'' };
+      },
+      error: (error) => {
+        console.error('Error al guardar:', error);
+        alert('Error al guardar el horario');
+      }
+    });
+  }
 
 }
