@@ -20,9 +20,13 @@
         </select>
 
         <input type="time" [(ngModel)]="schedule.startTime" name="startTime" required class="border p-2 rounded w-full mb-4" />
-
         <input type="time" [(ngModel)]="schedule.endTime" name="endTime" required class="border p-2 rounded w-full mb-4" />
 
         <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full">Guardar Horario</button>
+        <button (click)="goToScheduleList()" class="mt-4 bg-green-500 text-white p-2 rounded">
+            Ver Horarios
+        </button>
     </form>
+
+    
 </div>

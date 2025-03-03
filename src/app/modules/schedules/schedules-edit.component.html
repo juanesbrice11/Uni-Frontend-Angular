@@ -1,0 +1,19 @@
+<div class="flex flex-col items-center justify-center">
+    <p class="mb-4 text-lg font-semibold">Editar Horario</p>
+
+    <form (ngSubmit)="updateSchedule()" class="w-80 flex flex-col gap-4">
+        <select [(ngModel)]="schedule.day" name="day" required class="border p-2 rounded w-full mb-4">
+            <option value="Lunes">Lunes</option>
+            <option value="Martes">Martes</option>
+            <option value="Miércoles">Miércoles</option>
+            <option value="Jueves">Jueves</option>
+            <option value="Viernes">Viernes</option>
+            <option value="Sábado">Sábado</option>
+        </select>
+
+        <input type="time" [(ngModel)]="schedule.startTime" name="startTime" required class="border p-2 rounded w-full mb-4" />
+        <input type="time" [(ngModel)]="schedule.endTime" name="endTime" required class="border p-2 rounded w-full mb-4" />
+
+        <button type="submit" class="bg-green-500 text-white p-2 rounded w-full">Actualizar Horario</button>
+    </form>
+</div>

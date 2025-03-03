@@ -1,0 +1,27 @@
+<div class="container mx-auto mt-8">
+    <h2 class="text-lg font-semibold mb-4">Lista de Horarios</h2>
+
+    <table class="w-full border-collapse border border-gray-200">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border p-2">Día</th>
+                <th class="border p-2">Curso</th>
+                <th class="border p-2">Hora de Inicio</th>
+                <th class="border p-2">Hora de Fin</th>
+                <th class="border p-2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let schedule of schedules">
+                <td class="border p-2">{{ schedule.day }}</td>
+                <td class="border p-2">{{ schedule.courseName }}</td>
+                <td class="border p-2">{{ schedule.startTime }}</td>
+                <td class="border p-2">{{ schedule.endTime }}</td>
+                <td class="border p-2">
+                    <button (click)="editSchedule(schedule.id)" class="bg-blue-500 text-white px-3 py-1 rounded">Editar</button>
+                    <button (click)="deleteSchedule(schedule.id)" class="bg-red-500 text-white px-3 py-1 rounded ml-2">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
