@@ -1,1 +1,17 @@
-<p>professors works!</p>
+<div class="flex flex-col items-center justify-center">
+    <p class="mb-4 text-lg font-semibold">Creación de un Profesor:</p>
+
+    <form (ngSubmit)="saveProfessor()" class="w-80 flex flex-col gap-4">
+        <input type="text" [(ngModel)]="professor.name" name="name" placeholder="Nombre" required class="border p-2 rounded w-full mb-4" />
+        <input type="date" [(ngModel)]="professor.hireDate" name="hireDate" required class="border p-2 rounded w-full mb-4" />
+        
+        <select [(ngModel)]="professor.departmentId" name="departmentId" required class="border p-2 rounded w-full mb-4">
+            <option value="" disabled selected>Seleccione un departamento</option>
+            <option *ngFor="let dept of departments" [value]="dept.id">
+                {{ dept.name }}
+            </option>
+        </select>
+
+        <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full">Guardar Profesor</button>
+    </form>
+</div>
