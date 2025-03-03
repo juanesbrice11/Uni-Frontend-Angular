@@ -1,0 +1,16 @@
+<div class="flex flex-col items-center justify-center">
+    <p class="mb-4 text-lg font-semibold">Editar Departamento</p>
+
+    <form (ngSubmit)="updateDepartment()" class="w-80 flex flex-col gap-4">
+        <input type="text" [(ngModel)]="department.name" name="name" placeholder="Nombre" required 
+            class="border p-2 rounded w-full mb-4" />
+
+        <button type="submit" class="bg-green-500 text-white p-2 rounded w-full">
+            Guardar Cambios
+        </button>
+
+        <button type="button" (click)="cancel()" class="bg-gray-500 text-white p-2 rounded w-full">
+            Cancelar
+        </button>
+    </form>
+</div>

@@ -1,8 +1,10 @@
 <div class="flex flex-col items-center justify-center">
     <p class="mb-4 text-lg font-semibold">Creación de un Departamento:</p>
-
-<form (ngSubmit)="saveDepartment()" class="w-80 flex flex-col gap-4">
-    <input type="text" [(ngModel)]="department.name" name="course" placeholder="ID" required class="border p-2 rounded w-full mb-4" />
-    <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full">Guardar departamento</button>
-</form>
+    
+    <form (ngSubmit)="saveDepartment()" class="w-80 flex flex-col gap-4">
+        <input type="text" [(ngModel)]="department.name" name="department" placeholder="Nombre del Departamento" required class="border p-2 rounded w-full mb-4" />
+        <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full">Guardar departamento</button>
+    </form>
+    
+    <button (click)="goToDepartmentsList()" class="mt-4 bg-green-500 text-white p-2 rounded">Ver Departamentos</button>
 </div>
