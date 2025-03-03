@@ -1,0 +1,47 @@
+<div class="container mx-auto p-4">
+    <h2 class="text-2xl font-bold mb-4">Lista de Evaluaciones</h2>
+
+    <table class="w-full border-collapse border border-gray-300">
+        <thead>
+            <tr class="bg-gray-200">
+                <th class="border border-gray-300 px-4 py-2">ID</th>
+                <th class="border border-gray-300 px-4 py-2">Nombre</th>
+                <th class="border border-gray-300 px-4 py-2">Fecha</th>
+                <th class="border border-gray-300 px-4 py-2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let assessment of assessments" class="hover:bg-gray-100">
+                <td class="border border-gray-300 px-4 py-2">{{ assessment.id }}</td>
+                <td class="border border-gray-300 px-4 py-2">{{ assessment.name }}</td>
+                <td class="border border-gray-300 px-4 py-2">{{ assessment.date }}</td>
+                <td class="border border-gray-300 px-4 py-2">
+                    <button (click)="editAssessment(assessment)" class="bg-blue-500 text-white px-3 py-1 rounded mr-2">
+                        Editar
+                    </button>
+                    <button (click)="deleteAssessment(assessment.id)" class="bg-red-500 text-white px-3 py-1 rounded">
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="selectedAssessment" class="mt-4 p-4 border rounded bg-gray-100">
+        <h3 class="text-xl font-bold mb-2">Editar Evaluación</h3>
+        <label class="block mb-2">Nombre:</label>
+        <input [(ngModel)]="selectedAssessment.name" class="w-full border px-2 py-1 mb-2" type="text">
+
+        <label class="block mb-2">Fecha:</label>
+        <input [(ngModel)]="selectedAssessment.date" class="w-full border px-2 py-1 mb-2" type="date">
+
+        <div class="mt-2">
+            <button (click)="updateAssessment(selectedAssessment)" class="bg-green-500 text-white px-3 py-1 rounded mr-2">
+                Guardar Cambios
+            </button>
+            <button (click)="closeEdit()" class="bg-gray-500 text-white px-3 py-1 rounded">
+                Cancelar
+            </button>
+        </div>
+    </div>
+</div>

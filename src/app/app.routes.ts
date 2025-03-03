@@ -23,6 +23,8 @@ import { DepartmentsListComponent } from './modules/departments/departments-list
 import { SchedulesListComponent } from './modules/schedules/schedules-list.component';
 import { SchedulesEditComponent } from './modules/schedules/schedules-edit.component';
 
+import { AssessmentsListComponent } from './modules/assessments/assessments-list.component';
+import { AssessmentEditComponent } from './modules/assessments/assessment-edit.component';
 export const routes: Routes = [
 
 
@@ -33,6 +35,8 @@ export const routes: Routes = [
   { path: 'students', component: StudentsComponent, canActivate: [AuthGuard] },
   { path: 'students-list', component: StudentsListComponent, canActivate: [AuthGuard] },
   { path: 'assessments', component: AssessmentsComponent, canActivate: [AuthGuard] },
+  { path: 'assessments-list', component: AssessmentsListComponent, canActivate: [AuthGuard] },
+  { path: 'assessment-edit/:id', component: AssessmentEditComponent, canActivate: [AuthGuard] },
   { path: 'student-edit/:id', component: StudentEditComponent },  
   { path: 'courses', component: CoursesComponent, canActivate: [AuthGuard] }, 
   { path: 'courses-list', component: CoursesListComponent, canActivate: [AuthGuard] },

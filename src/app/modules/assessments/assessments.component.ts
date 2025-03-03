@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-assessments',
@@ -16,7 +18,7 @@ export class AssessmentsComponent implements OnInit {
     assessment = { courseId: '', name: '', date: '' };
     courses: any[] = [];
 
-    constructor(private http: HttpClient) {}
+    constructor(private router: Router, private authService: AuthService, private http: HttpClient) {}
 
     ngOnInit() {
         this.loadCourses();
@@ -34,9 +36,17 @@ export class AssessmentsComponent implements OnInit {
     }
 
     saveAssessment() {
-        console.log('Evaluación guardada:', this.assessment);
-
-        this.http.post(this.apiUrl, this.assessment).subscribe({
+        const token = this.authService.getToken(); 
+        console.log('Token enviado en la petición:', token);
+    
+        if (!token) {
+            alert('No tienes permisos para realizar esta acción');
+            return;
+        }
+    
+        this.http.post(this.apiUrl, this.assessment, {
+            headers: { Authorization: `Bearer ${token}` }
+        }).subscribe({
             next: (response) => {
                 console.log('Evaluación guardada:', response);
                 alert('Evaluación guardada con éxito');
@@ -48,4 +58,10 @@ export class AssessmentsComponent implements OnInit {
             }
         });
     }
+    
+    
+
+    goToAssessments() {
+        this.router.navigate(['/assessments-list']);
+    }   
 }
