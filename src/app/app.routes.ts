@@ -28,6 +28,8 @@ import { AssessmentEditComponent } from './modules/assessments/assessment-edit.c
 
 import { EditEnrollmentComponent } from './modules/enrollments/enrollments-edit.component';
 
+import { EditProfessorComponent } from './modules/professors/professors-edit.component';
+
 export const routes: Routes = [
 
 
@@ -46,6 +48,7 @@ export const routes: Routes = [
   { path: 'departments', component: DepartmentsComponent, canActivate: [AuthGuard] },
   { path: 'professors', component: ProfessorsComponent, canActivate: [AuthGuard] },
   { path: 'professors-list', component: ProfessorsListComponent, canActivate: [AuthGuard] },
+  { path: 'professor-edit/:id', component: EditProfessorComponent, canActivate: [AuthGuard] },
   { path: 'enrollments', component: EnrollmentsComponent, canActivate: [AuthGuard] }, 
   { path: 'enrollments-list', component: EnrollmentsListComponent, canActivate: [AuthGuard] },
   { path: 'enrollment-edit/:id', component: EditEnrollmentComponent, canActivate: [AuthGuard] },

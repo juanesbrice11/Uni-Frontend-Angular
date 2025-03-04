@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-professors-list',
@@ -18,7 +19,7 @@ export class ProfessorsListComponent implements OnInit {
     departments: any[] = [];
     selectedProfessor: any = null;
 
-    constructor(private http: HttpClient, private authService: AuthService) {}
+    constructor(private router: Router, private http: HttpClient, private authService: AuthService) {}
 
     ngOnInit() {
         this.loadProfessors();
@@ -77,7 +78,7 @@ export class ProfessorsListComponent implements OnInit {
     }
 
     editProfessor(professor: any) {
-        this.selectedProfessor = { ...professor };
+        this.router.navigate(['/professor-edit', professor.id]);  
     }
 
     updateProfessor() {
