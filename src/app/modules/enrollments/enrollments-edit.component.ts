@@ -46,7 +46,11 @@ export class EditEnrollmentComponent implements OnInit {
     loadEnrollment() {
         this.http.get<any>(`${this.apiUrl}/${this.enrollmentId}`, this.getHeaders()).subscribe({
             next: (data) => {
-                this.enrollment = data;
+                this.enrollment = {
+                    studentId: data.student.id, 
+                    courseId: data.course.id,    
+                    enrollmentDate: data.enrollmentDate
+                };
             },
             error: (error) => {
                 console.error('Error al cargar la matrícula:', error);
@@ -77,12 +81,21 @@ export class EditEnrollmentComponent implements OnInit {
     }
 
     updateEnrollment() {
-        if (!this.enrollmentId) return;
-
-        this.http.patch(`${this.apiUrl}/${this.enrollmentId}`, this.enrollment, this.getHeaders()).subscribe({
+        if (!this.enrollmentId) {
+            alert('Error: No se encontró la matrícula a actualizar.');
+            return;
+        }
+    
+        const updatedEnrollment = {
+            studentId: this.enrollment.studentId,
+            courseId: this.enrollment.courseId,
+            enrollmentDate: this.enrollment.enrollmentDate
+        };
+    
+        this.http.patch(`${this.apiUrl}/${this.enrollmentId}`, updatedEnrollment, this.getHeaders()).subscribe({
             next: () => {
                 alert('Matrícula actualizada con éxito');
-                this.router.navigate(['/enrollments-list']);
+                this.router.navigate(['/enrollments']);
             },
             error: (error) => {
                 console.error('Error al actualizar la matrícula:', error);
@@ -90,8 +103,9 @@ export class EditEnrollmentComponent implements OnInit {
             }
         });
     }
+    
 
     cancelEdit() {
-        this.router.navigate(['/enrollments-list']);
+        this.router.navigate(['/enrollments']);
     }
 }

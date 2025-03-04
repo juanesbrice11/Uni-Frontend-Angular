@@ -25,6 +25,9 @@ import { SchedulesEditComponent } from './modules/schedules/schedules-edit.compo
 
 import { AssessmentsListComponent } from './modules/assessments/assessments-list.component';
 import { AssessmentEditComponent } from './modules/assessments/assessment-edit.component';
+
+import { EditEnrollmentComponent } from './modules/enrollments/enrollments-edit.component';
+
 export const routes: Routes = [
 
 
@@ -45,6 +48,7 @@ export const routes: Routes = [
   { path: 'professors-list', component: ProfessorsListComponent, canActivate: [AuthGuard] },
   { path: 'enrollments', component: EnrollmentsComponent, canActivate: [AuthGuard] }, 
   { path: 'enrollments-list', component: EnrollmentsListComponent, canActivate: [AuthGuard] },
+  { path: 'enrollment-edit/:id', component: EditEnrollmentComponent, canActivate: [AuthGuard] },
   { path: 'grades', component: GradesComponent, canActivate: [AuthGuard] }, 
   { path: 'schedules', component: SchedulesComponent, canActivate: [AuthGuard] }, 
   { path: 'departments-list', component: DepartmentsListComponent, canActivate: [AuthGuard] },
