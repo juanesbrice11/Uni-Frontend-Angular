@@ -54,12 +54,15 @@ export class StudentEditComponent implements OnInit {
         }
     
         const updateData = {
-            studentId: this.student.studentId,
+            id: this.student.id,  
             name: this.student.name,
             birthDate: this.student.birthDate
         };
+        
+
+        console.log('Datos enviados para actualización:', updateData);
     
-        this.http.patch(`${this.apiUrl}/${this.student.studentId}`, updateData, this.getHeaders())
+        this.http.patch(`${this.apiUrl}/${this.student.id}`, updateData, this.getHeaders())
             .subscribe({
                 next: () => {
                     alert('Estudiante actualizado con éxito');

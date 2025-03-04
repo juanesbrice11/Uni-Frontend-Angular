@@ -39,7 +39,7 @@ import { FormsModule } from '@angular/forms';
         return;
         }
 
-        this.http.put(`${this.apiUrl}/${this.schedule.id}`, this.schedule, {
+        this.http.patch(`${this.apiUrl}/${this.schedule.id}`, this.schedule, {
         headers: { Authorization: `Bearer ${token}` },
         }).subscribe({
         next: () => {
