@@ -1,0 +1,27 @@
+<div class="p-4">
+    <h2 class="text-xl font-bold mb-4">Lista de Calificaciones</h2>
+    
+    <table class="w-full border-collapse border border-gray-300">
+        <thead>
+            <tr class="bg-gray-200">
+                <th class="border p-2">Estudiante</th>
+                <th class="border p-2">Evaluación</th>
+                <th class="border p-2">Calificación</th>
+                <th class="border p-2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let grade of grades">
+                <td class="border p-2">{{ grade.studentName }}</td>
+                <td class="border p-2">{{ grade.assessmentName }}</td>
+                <td class="border p-2">{{ grade.score }}</td>
+                <td class="border p-2 flex gap-2">
+                    <button class="bg-blue-500 text-white p-1 rounded" (click)="editGrade(grade.id)">Editar</button>
+                    <button class="bg-red-500 text-white p-1 rounded" (click)="deleteGrade(grade.id)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <button class="mt-4 bg-gray-500 text-white p-2 rounded" (click)="goBack()">Volver</button>
+</div>
