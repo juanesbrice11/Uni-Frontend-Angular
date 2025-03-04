@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-enrollments-list',
@@ -20,7 +21,7 @@ export class EnrollmentsListComponent implements OnInit {
     courses: any[] = [];
     selectedEnrollment: any = null;
 
-    constructor(private http: HttpClient, private authService: AuthService) {}
+    constructor(private http: HttpClient, private authService: AuthService, private router: Router) {}
 
     ngOnInit() {
         this.loadEnrollments();
@@ -84,9 +85,7 @@ export class EnrollmentsListComponent implements OnInit {
     }
 
     editEnrollment(enrollment: any) {
-        this.selectedEnrollment = { ...enrollment };
-        this.loadStudents();
-        this.loadCourses();
+        this.router.navigate(['/enrollment-edit', enrollment.id]);
     }
 
     updateEnrollment() {
