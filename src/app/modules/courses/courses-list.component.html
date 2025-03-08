@@ -22,8 +22,11 @@
                     <button (click)="deleteCourse(course.id)" class="bg-red-500 text-white px-3 py-1 rounded">
                         <lucide-icon [name]="TrashIcon"></lucide-icon>
                     </button>
-                    
+                    <button (click)="viewPrerequisites(course.id)" class="bg-blue-500 text-white px-3 py-1 rounded">
+                        <lucide-icon [name]="ListIcon"></lucide-icon>
+                    </button>
                 </td>
+                
             </tr>
 
             <tr *ngIf="selectedCourse">

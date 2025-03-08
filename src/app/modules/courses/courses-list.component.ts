@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
+import { LucideAngularModule, Edit, Trash2, List } from 'lucide-angular';
 
 @Component({
     selector: 'app-courses-list',
@@ -16,6 +16,7 @@ import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
 export class CoursesListComponent implements OnInit {
     readonly EditIcon = Edit;  
     readonly TrashIcon = Trash2;
+    readonly ListIcon = List;
     apiUrl = 'http://localhost:3000/courses';
     courses: any[] = [];
     selectedCourse: any = null;
@@ -119,6 +120,10 @@ export class CoursesListComponent implements OnInit {
 
     closeEdit() {
         this.selectedCourse = null;
+    }
+
+    viewPrerequisites(courseId: number) {
+        this.router.navigate(['/course-prerequisites', courseId]);
     }
 
     

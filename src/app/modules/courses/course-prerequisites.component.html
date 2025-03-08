@@ -1,0 +1,19 @@
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">Prerrequisitos del Curso</h2>
+
+  <div *ngIf="prerequisites.length > 0; else noPrerequisites">
+    <ul class="list-disc pl-5">
+      <li *ngFor="let prerequisite of prerequisites" class="mb-2">
+        {{ prerequisite.name }}
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noPrerequisites>
+    <p class="text-gray-500">Este curso no tiene prerrequisitos.</p>
+  </ng-template>
+
+  <button (click)="goBack()" class="bg-blue-500 text-white px-3 py-1 rounded mt-4">
+    Volver
+  </button>
+</div>

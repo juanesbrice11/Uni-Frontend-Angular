@@ -16,6 +16,7 @@ import { CoursesListComponent } from './modules/courses/courses-list.component';
 import { StudentsListComponent } from './modules/students/students-list.component';
 import { EnrollmentsListComponent } from './modules/enrollments/enrollments-list.component';
 import { CourseEditComponent } from './modules/courses/course-edit.component';
+import { CoursesPrerequisitesComponent } from './modules/courses/course-prerequisites.component';
 import { ProfessorsListComponent } from './modules/professors/professors-list.component';
 import { StudentEditComponent } from './modules/students/students-edit.component';
 import { DepartmentsEditComponent } from './modules/departments/departments-edit.component';
@@ -62,6 +63,7 @@ export const routes: Routes = [
   { path: 'schedules-edit/:id', component: SchedulesEditComponent, canActivate: [AuthGuard] },
   { path: 'grades-list', component: GradesListComponent, canActivate: [AuthGuard] },
   { path: 'grades-edit/:id', component: GradesEditComponent, canActivate: [AuthGuard] },
+  { path: 'course-prerequisites/:id', component: CoursesPrerequisitesComponent },
   { path: '**', redirectTo: '/login' }, 
   
 ];
