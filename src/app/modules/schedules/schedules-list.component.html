@@ -18,8 +18,12 @@
                 <td class="border p-2">{{ schedule.startTime }}</td>
                 <td class="border p-2">{{ schedule.endTime }}</td>
                 <td class="border p-2">
-                    <button (click)="editSchedule(schedule.id)" class="bg-blue-500 text-white px-3 py-1 rounded">Editar</button>
-                    <button (click)="deleteSchedule(schedule.id)" class="bg-red-500 text-white px-3 py-1 rounded ml-2">Eliminar</button>
+                    <button (click)="editSchedule(schedule.id)" class="bg-yellow-500 text-white px-3 py-1 rounded">
+                        <lucide-icon [name]="'edit'"></lucide-icon>
+                    </button>
+                    <button (click)="deleteSchedule(schedule.id)" class="bg-red-500 text-white px-3 py-1 rounded ml-2">
+                        <lucide-icon [name]="'trash-2'"></lucide-icon>
+                    </button>                    
                 </td>
             </tr>
         </tbody>

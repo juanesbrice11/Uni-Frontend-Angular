@@ -4,14 +4,18 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
+
 
 @Component({
     selector: 'app-students-list',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, LucideAngularModule],
     templateUrl: './students-list.component.html'
 })
 export class StudentsListComponent implements OnInit {
+    readonly EditIcon = Edit;  
+    readonly TrashIcon = Trash2;
     apiUrl = 'http://localhost:3000/students';
     students: any[] = [];
     selectedStudent: any = null;

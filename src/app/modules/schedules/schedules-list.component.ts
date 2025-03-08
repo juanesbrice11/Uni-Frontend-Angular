@@ -3,14 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
 
 @Component({
     selector: 'app-schedules-list',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, LucideAngularModule],
     templateUrl: './schedules-list.component.html',
     })
     export class SchedulesListComponent {
+    readonly EditIcon = Edit;  
+    readonly TrashIcon = Trash2;
     schedules: any[] = [];
     courses: any[] = [];
     apiUrl = 'http://localhost:3000/schedules';

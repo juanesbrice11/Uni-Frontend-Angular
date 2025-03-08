@@ -19,7 +19,8 @@
         <input type="number" [(ngModel)]="grade.score" name="score" placeholder="Calificación" required class="border p-2 rounded w-full mb-4" />
 
         <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full">Guardar Nota</button>
+        <button class="mt-4 bg-green-500 text-white p-2 rounded w-full" (click)="goToGradesList()">Ver Calificaciones</button>
     </form>
 
-    <button class="mt-4 bg-green-500 text-white p-2 rounded w-full" (click)="goToGradesList()">Ver Calificaciones</button>
+    
 </div>

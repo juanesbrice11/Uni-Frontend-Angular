@@ -38,7 +38,8 @@ export class EditEnrollmentComponent implements OnInit {
         const token = this.authService.getToken();
         return {
             headers: new HttpHeaders({
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
             })
         };
     }
@@ -81,6 +82,13 @@ export class EditEnrollmentComponent implements OnInit {
     }
 
     updateEnrollment() {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            alert('No tienes permisos para editar este profesor');
+            return;
+        }
+
         if (!this.enrollmentId) {
             alert('Error: No se encontró la matrícula a actualizar.');
             return;
@@ -90,7 +98,7 @@ export class EditEnrollmentComponent implements OnInit {
             studentId: this.enrollment.studentId,
             courseId: this.enrollment.courseId,
             enrollmentDate: this.enrollment.enrollmentDate
-        };
+        };        
     
         this.http.patch(`${this.apiUrl}/${this.enrollmentId}`, updatedEnrollment, this.getHeaders()).subscribe({
             next: () => {

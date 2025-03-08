@@ -3,14 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
 
 @Component({
     selector: 'app-grades-list',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, LucideAngularModule],
     templateUrl: './grades-list.component.html',
 })
 export class GradesListComponent implements OnInit {
+    readonly EditIcon = Edit;  
+    readonly TrashIcon = Trash2;
     apiUrl = 'http://localhost:3000/grades';
     grades: any[] = [];
 

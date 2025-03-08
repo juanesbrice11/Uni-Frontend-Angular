@@ -17,11 +17,12 @@
                 <td class="border p-2">{{ student.birthDate }}</td>
                 <td class="border p-2 flex gap-2">
                     <button (click)="editStudent(student)" class="bg-yellow-500 text-white px-3 py-1 rounded">
-                        Editar
+                        <lucide-icon [name]="'edit'"></lucide-icon>
                     </button>
-                    <button (click)="deleteStudent(student.studentId)" class="bg-red-500 text-white px-3 py-1 rounded">
-                        Eliminar
+                    <button (click)="deleteStudent(student.id)" class="bg-red-500 text-white px-3 py-1 rounded">
+                        <lucide-icon [name]="'trash-2'"></lucide-icon>
                     </button>
+                    
                 </td>
             </tr>
 

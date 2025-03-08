@@ -5,11 +5,13 @@ import { routes } from './app/app.routes';
 import { importProvidersFrom } from '@angular/core';
 import { AuthService } from './app/services/auth.service'
 import { provideHttpClient } from '@angular/common/http';
+import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     importProvidersFrom(AuthService) ,
-    provideHttpClient()
+    provideHttpClient(),
+    importProvidersFrom(LucideAngularModule.pick({ Edit, Trash2 }))
   ]
 }).catch(err => console.error(err));

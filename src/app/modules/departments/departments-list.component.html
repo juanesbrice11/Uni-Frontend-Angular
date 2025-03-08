@@ -15,11 +15,12 @@
                 <td class="border border-gray-400 px-4 py-2">{{ department.name }}</td>
                 <td class="border border-gray-400 px-4 py-2 flex gap-2">
                     <button (click)="editDepartment(department.id)" class="bg-yellow-500 text-white px-2 py-1 rounded">
-                        Editar
+                        <lucide-icon [name]="EditIcon"></lucide-icon>
                     </button>
                     <button (click)="deleteDepartment(department.id)" class="bg-red-500 text-white px-2 py-1 rounded">
-                        Eliminar
+                        <lucide-icon [name]="TrashIcon"></lucide-icon>
                     </button>
+                    
                 </td>
             </tr>
         </tbody>

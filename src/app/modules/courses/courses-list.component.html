@@ -17,11 +17,12 @@
                 <td class="border p-2">{{ course.professor?.name }}</td>
                 <td class="border p-2 flex gap-2">
                     <button (click)="editCourse(course)" class="bg-yellow-500 text-white px-3 py-1 rounded">
-                        Editar
+                        <lucide-icon [name]="EditIcon"></lucide-icon>
                     </button>
                     <button (click)="deleteCourse(course.id)" class="bg-red-500 text-white px-3 py-1 rounded">
-                        Eliminar
+                        <lucide-icon [name]="TrashIcon"></lucide-icon>
                     </button>
+                    
                 </td>
             </tr>
 

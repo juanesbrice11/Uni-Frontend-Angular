@@ -4,14 +4,17 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
 
 @Component({
     selector: 'app-professors-list',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, LucideAngularModule],
     templateUrl: './professors-list.component.html'
 })
 export class ProfessorsListComponent implements OnInit {
+    readonly EditIcon = Edit;  
+    readonly TrashIcon = Trash2;
     apiUrl = 'http://localhost:3000/professors';
     departmentsUrl = 'http://localhost:3000/departments';
 

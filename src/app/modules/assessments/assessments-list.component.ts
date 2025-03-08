@@ -4,14 +4,17 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
 
 @Component({
     selector: 'app-assessments-list',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, LucideAngularModule],
     templateUrl: './assessments-list.component.html'
 })
 export class AssessmentsListComponent implements OnInit {
+    readonly EditIcon = Edit;  
+    readonly TrashIcon = Trash2;
     apiUrl = 'http://localhost:3000/assessments';
     assessments: any[] = [];
     selectedAssessment: any = null;

@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class AssessmentEditComponent implements OnInit {
     apiUrl = 'http://localhost:3000/assessments';
-    assessment: { courseId: string; name: string; date: string } = { courseId: '', name: '', date: '' };
+    assessment: { id?: number; courseId: string; name: string; date: string } = { id: undefined , courseId: '', name: '', date: '' };
     courses: any[] = [];
 
     constructor(
@@ -40,10 +40,15 @@ export class AssessmentEditComponent implements OnInit {
 
     loadAssessment(id: string) {
         this.http.get(`${this.apiUrl}/${id}`).subscribe({
-            next: (data: any) => (this.assessment = data),
+            next: (data: any) => {
+                this.assessment = data;
+                this.assessment.id = Number(id); 
+            },
             error: (error) => console.error('Error al cargar la evaluación:', error)
         });
     }
+    
+    
 
     loadCourses() {
         this.http.get<any[]>('http://localhost:3000/courses').subscribe({
@@ -53,14 +58,11 @@ export class AssessmentEditComponent implements OnInit {
     }
 
     saveChanges() {
-        const token = localStorage.getItem('token');
-        
-        if (!token) {
-            alert('No tienes permisos para editar esta evaluación');
-            return;
-        }
-
-        this.http.patch(`${this.apiUrl}/${this.assessment.courseId}`, this.assessment, this.getHeaders()).subscribe({
+        this.assessment.id = Number(this.assessment.id);  // 👈 Convierte id a número
+    
+        console.log('Enviando datos:', this.assessment); // Revisa en consola
+    
+        this.http.patch(`${this.apiUrl}/${this.assessment.id}`, this.assessment, this.getHeaders()).subscribe({
             next: () => {
                 alert('Evaluación actualizada con éxito');
                 this.router.navigate(['/assessments']);
@@ -71,6 +73,8 @@ export class AssessmentEditComponent implements OnInit {
             }
         });
     }
+    
+
 
     cancel() {
         this.router.navigate(['/assessments']);

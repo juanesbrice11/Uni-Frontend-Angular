@@ -4,13 +4,16 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
 
 @Component({
     selector: 'app-departments-list',
-    imports: [ FormsModule, CommonModule],
+    imports: [ FormsModule, CommonModule, LucideAngularModule],
     templateUrl: './departments-list.component.html',
     })
     export class DepartmentsListComponent implements OnInit {
+    readonly EditIcon = Edit;  
+    readonly TrashIcon = Trash2;
     apiUrl = 'http://localhost:3000/departments';
     departments: any[] = [];
 

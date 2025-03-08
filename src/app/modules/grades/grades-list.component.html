@@ -16,8 +16,13 @@
                 <td class="border p-2">{{ grade.assessmentName }}</td>
                 <td class="border p-2">{{ grade.score }}</td>
                 <td class="border p-2 flex gap-2">
-                    <button class="bg-blue-500 text-white p-1 rounded" (click)="editGrade(grade.id)">Editar</button>
-                    <button class="bg-red-500 text-white p-1 rounded" (click)="deleteGrade(grade.id)">Eliminar</button>
+                    <button class="bg-yellow-500 text-white px-3 py-1 rounded" (click)="editGrade(grade.id)">
+                        <lucide-icon [name]="'edit'"></lucide-icon>
+                    </button>
+                    <button class="bg-red-500 text-white px-3 p-1 rounded" (click)="deleteGrade(grade.id)">
+                        <lucide-icon [name]="'trash-2'"></lucide-icon>
+                    </button>
+                    
                 </td>
             </tr>
         </tbody>
