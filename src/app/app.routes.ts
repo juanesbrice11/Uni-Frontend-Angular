@@ -32,14 +32,15 @@ import { EditEnrollmentComponent } from './modules/enrollments/enrollments-edit.
 import { EditProfessorComponent } from './modules/professors/professors-edit.component';
 import { GradesListComponent } from './modules/grades/grades-list.component';
 import { GradesEditComponent } from './modules/grades/grades-edit.component';
+import { GuestGuard } from './guards/guest.guard';
 
 export const routes: Routes = [
 
 
   { path: '', redirectTo: '/login', pathMatch: 'full' }, 
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'course-edit/:id', component: CourseEditComponent },
+  { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
+  { path: 'course-edit/:id', component: CourseEditComponent, canActivate: [AuthGuard]  },
   { path: 'students', component: StudentsComponent, canActivate: [AuthGuard] },
   { path: 'students-list', component: StudentsListComponent, canActivate: [AuthGuard] },
   { path: 'assessments', component: AssessmentsComponent, canActivate: [AuthGuard] },

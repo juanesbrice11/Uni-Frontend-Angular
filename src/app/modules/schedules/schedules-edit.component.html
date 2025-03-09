@@ -1,19 +1,33 @@
-<div class="flex flex-col items-center justify-center">
-    <p class="mb-4 text-lg font-semibold">Editar Horario</p>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-950 p-6">
+    <div class="w-full max-w-md bg-gray-800 text-white rounded-lg shadow-lg p-6">
+        <p class="text-xl font-semibold text-center text-gray-200 mb-6 tracking-wide">
+            Editar Horario
+        </p>
 
-    <form (ngSubmit)="updateSchedule()" class="w-80 flex flex-col gap-4">
-        <select [(ngModel)]="schedule.day" name="day" required class="border p-2 rounded w-full mb-4">
-            <option value="Lunes">Lunes</option>
-            <option value="Martes">Martes</option>
-            <option value="Miércoles">Miércoles</option>
-            <option value="Jueves">Jueves</option>
-            <option value="Viernes">Viernes</option>
-            <option value="Sábado">Sábado</option>
-        </select>
+        <form (ngSubmit)="updateSchedule()" class="w-full flex flex-col gap-4">
+            <label for="day" class="text-gray-300">Día</label>
+            <select id="day" [(ngModel)]="schedule.day" name="day" required 
+                class="border border-gray-600 p-3 rounded bg-gray-700 text-white w-full focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <option value="Lunes">Lunes</option>
+                <option value="Martes">Martes</option>
+                <option value="Miércoles">Miércoles</option>
+                <option value="Jueves">Jueves</option>
+                <option value="Viernes">Viernes</option>
+                <option value="Sábado">Sábado</option>
+            </select>
 
-        <input type="time" [(ngModel)]="schedule.startTime" name="startTime" required class="border p-2 rounded w-full mb-4" />
-        <input type="time" [(ngModel)]="schedule.endTime" name="endTime" required class="border p-2 rounded w-full mb-4" />
+            <label for="startTime" class="text-gray-300">Hora de Inicio</label>
+            <input id="startTime" type="time" [(ngModel)]="schedule.startTime" name="startTime" required 
+                class="border border-gray-600 p-3 rounded bg-gray-700 text-white w-full focus:ring-2 focus:ring-blue-500 focus:outline-none" />
 
-        <button type="submit" class="bg-green-500 text-white p-2 rounded w-full">Actualizar Horario</button>
-    </form>
+            <label for="endTime" class="text-gray-300">Hora de Fin</label>
+            <input id="endTime" type="time" [(ngModel)]="schedule.endTime" name="endTime" required 
+                class="border border-gray-600 p-3 rounded bg-gray-700 text-white w-full focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+
+            <button type="submit" 
+                class="bg-green-500 hover:bg-green-400 text-white font-semibold p-3 rounded w-full shadow-md transition-all duration-300">
+                Actualizar Horario
+            </button>
+        </form>
+    </div>
 </div>

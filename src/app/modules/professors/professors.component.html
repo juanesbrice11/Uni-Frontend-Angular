@@ -1,19 +1,36 @@
-<div class="flex flex-col items-center justify-center">
-    <p class="mb-4 text-lg font-semibold">Creación de un Profesor:</p>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-950 p-6">
+    <div class="w-full max-w-md bg-gray-800 text-white rounded-lg shadow-lg p-6">
+        <p class="text-xl font-semibold text-center text-gray-200 mb-6 tracking-wide">
+            Creación de un Profesor
+        </p>
 
-    <form (ngSubmit)="saveProfessor()" class="w-80 flex flex-col gap-4">
-        <input type="text" [(ngModel)]="professor.name" name="name" placeholder="Nombre" required class="border p-2 rounded w-full mb-4" />
-        <input type="date" [(ngModel)]="professor.hireDate" name="hireDate" required class="border p-2 rounded w-full mb-4" />
-        
-        <select [(ngModel)]="professor.departmentId" name="departmentId" required class="border p-2 rounded w-full mb-4">
-            <option value="" disabled selected>Seleccione un departamento</option>
-            <option *ngFor="let dept of departments" [value]="dept.id">
-                {{ dept.name }}
-            </option>
-        </select>
+        <form (ngSubmit)="saveProfessor()" class="w-full flex flex-col gap-4">
+            <label for="name" class="text-gray-300">Nombre</label>
+            <input id="name" type="text" [(ngModel)]="professor.name" name="name" placeholder="Ingrese el nombre" required 
+                class="border border-gray-600 p-3 rounded bg-gray-700 text-white w-full focus:ring-2 focus:ring-blue-500 focus:outline-none" />
 
-        <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full">Guardar Profesor</button>
-        <button (click)="goToProfessors()" class="bg-green-500 text-white p-2 rounded w-full mt-4">Ver Profesores</button>
+            <label for="hireDate" class="text-gray-300">Fecha de Contratación</label>
+            <input id="hireDate" type="date" [(ngModel)]="professor.hireDate" name="hireDate" required 
+                class="border border-gray-600 p-3 rounded bg-gray-700 text-white w-full focus:ring-2 focus:ring-blue-500 focus:outline-none" />
 
-    </form>
+            <label for="departmentId" class="text-gray-300">Departamento</label>
+            <select id="departmentId" [(ngModel)]="professor.departmentId" name="departmentId" required 
+                class="border border-gray-600 p-3 rounded bg-gray-700 text-white w-full focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <option value="" disabled selected>Seleccione un departamento</option>
+                <option *ngFor="let dept of departments" [value]="dept.id">
+                    {{ dept.name }}
+                </option>
+            </select>
+
+            <button type="submit" 
+                class="bg-blue-500 hover:bg-blue-400 text-white font-semibold p-3 rounded w-full shadow-md transition-all duration-300">
+                Guardar Profesor
+            </button>
+
+            <button (click)="goToProfessors()" 
+                class="bg-green-500 hover:bg-green-400 text-white font-semibold p-3 rounded w-full mt-4 shadow-md transition-all duration-300">
+                Ver Profesores
+            </button>
+        </form>
+    </div>
 </div>

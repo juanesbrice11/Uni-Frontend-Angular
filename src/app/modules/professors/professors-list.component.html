@@ -1,58 +1,70 @@
-<div class="p-4">
-    <h2 class="text-lg font-semibold mb-4">Lista de Profesores</h2>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-950 p-6">
+    <div class="w-full max-w-4xl bg-gray-800 text-white rounded-lg shadow-lg p-6">
+        <h2 class="text-xl font-semibold text-center mb-6 text-gray-200 tracking-wide">
+            Lista de Profesores
+        </h2>
 
-    <table class="border w-full text-left">
-        <thead>
-            <tr>
-                <th class="border p-2">ID</th>
-                <th class="border p-2">Nombre</th>
-                <th class="border p-2">Fecha de Contratación</th>
-                <th class="border p-2">Departamento</th>
-                <th class="border p-2">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let professor of professors">
-                <td class="border p-2">{{ professor.id }}</td>
-                <td class="border p-2">{{ professor.name }}</td>
-                <td class="border p-2">{{ professor.hireDate }}</td>
-                <td class="border p-2">{{ getDepartmentName(professor.departmentId) }}</td>
-                <td class="border p-2 flex gap-2">
-                    <button (click)="editProfessor(professor)" class="bg-yellow-500 text-white px-3 py-1 rounded">
-                        <lucide-icon [name]="'edit'"></lucide-icon>
-                    </button>
-                    <button (click)="deleteProfessor(professor.id)" class="bg-red-500 text-white px-3 py-1 rounded">
-                        <lucide-icon [name]="'trash-2'"></lucide-icon>
-                    </button>
-                    
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="overflow-x-auto">
+            <table class="w-full border border-gray-700 text-left">
+                <thead>
+                    <tr class="bg-gray-700 text-gray-300">
+                        <th class="border border-gray-600 p-3">ID</th>
+                        <th class="border border-gray-600 p-3">Nombre</th>
+                        <th class="border border-gray-600 p-3">Fecha de Contratación</th>
+                        <th class="border border-gray-600 p-3">Departamento</th>
+                        <th class="border border-gray-600 p-3 text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let professor of professors" class="bg-gray-700 hover:bg-gray-600 transition-all">
+                        <td class="border border-gray-600 p-3">{{ professor.id }}</td>
+                        <td class="border border-gray-600 p-3">{{ professor.name }}</td>
+                        <td class="border border-gray-600 p-3">{{ professor.hireDate }}</td>
+                        <td class="border border-gray-600 p-3">{{ getDepartmentName(professor.departmentId) }}</td>
+                        <td class="border border-gray-600 p-3 flex justify-center gap-2">
+                            <button (click)="editProfessor(professor)" 
+                                class="bg-yellow-500 hover:bg-yellow-400 text-white px-3 py-1 rounded transition-all">
+                                <lucide-icon [name]="'edit'"></lucide-icon>
+                            </button>
+                            <button (click)="deleteProfessor(professor.id)" 
+                                class="bg-red-500 hover:bg-red-400 text-white px-3 py-1 rounded transition-all">
+                                <lucide-icon [name]="'trash-2'"></lucide-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <div *ngIf="selectedProfessor" class="bg-gray-100 p-4 rounded-lg mt-4">
-        <h3 class="text-lg font-semibold mb-2">Editar Profesor</h3>
+        <div *ngIf="selectedProfessor" class="bg-gray-700 p-6 rounded-lg mt-6">
+            <h3 class="text-lg font-semibold text-center text-gray-200 mb-4">Editar Profesor</h3>
 
-        <label class="block mb-2">Nombre</label>
-        <input type="text" [(ngModel)]="selectedProfessor.name" class="border p-2 w-full mb-4" />
+            <label for="editName" class="text-gray-300">Nombre</label>
+            <input id="editName" type="text" [(ngModel)]="selectedProfessor.name" 
+                class="border border-gray-600 p-3 rounded bg-gray-600 text-white w-full mb-4 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
 
-        <label class="block mb-2">Fecha de Contratación</label>
-        <input type="date" [(ngModel)]="selectedProfessor.hireDate" class="border p-2 w-full mb-4" />
+            <label for="editHireDate" class="text-gray-300">Fecha de Contratación</label>
+            <input id="editHireDate" type="date" [(ngModel)]="selectedProfessor.hireDate" 
+                class="border border-gray-600 p-3 rounded bg-gray-600 text-white w-full mb-4 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
 
-        <label class="block mb-2">Departamento</label>
-        <select [(ngModel)]="selectedProfessor.departmentId" class="border p-2 w-full mb-4">
-            <option *ngFor="let department of departments" [value]="department.id">
-                {{ department.name }}
-            </option>
-        </select>
+            <label for="editDepartment" class="text-gray-300">Departamento</label>
+            <select id="editDepartment" [(ngModel)]="selectedProfessor.departmentId" 
+                class="border border-gray-600 p-3 rounded bg-gray-600 text-white w-full mb-4 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <option *ngFor="let department of departments" [value]="department.id">
+                    {{ department.name }}
+                </option>
+            </select>
 
-        <div class="flex justify-end gap-2">
-            <button (click)="updateProfessor()" class="bg-green-500 text-white px-4 py-2 rounded">
-                Guardar
-            </button>
-            <button (click)="closeEdit()" class="bg-gray-500 text-white px-4 py-2 rounded">
-                Cancelar
-            </button>
+            <div class="flex justify-center gap-4">
+                <button (click)="updateProfessor()" 
+                    class="bg-green-500 hover:bg-green-400 text-white px-4 py-2 rounded transition-all">
+                    Guardar
+                </button>
+                <button (click)="closeEdit()" 
+                    class="bg-gray-500 hover:bg-gray-400 text-white px-4 py-2 rounded transition-all">
+                    Cancelar
+                </button>
+            </div>
         </div>
     </div>
 </div>

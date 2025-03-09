@@ -10,7 +10,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   template: `
     <div class="flex h-screen">
       <app-sidebar class="w-64"></app-sidebar>
-      <div class="flex-1 p-4 overflow-auto">
+      <div class="flex-1 p-4 overflow-auto items-center justify-center">
         <router-outlet></router-outlet>
       </div>
     </div>  

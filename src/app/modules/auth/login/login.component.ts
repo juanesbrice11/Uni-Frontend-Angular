@@ -32,6 +32,7 @@ export class LoginComponent {
           if (response && response.access_token) { 
             console.log('Login - Token recibido:', response.access_token);
             this.authService.setToken(response.access_token); 
+            window.location.reload();
             this.router.navigate(['/students']); 
           } else {
             console.error('Login - No se recibió un token válido.');

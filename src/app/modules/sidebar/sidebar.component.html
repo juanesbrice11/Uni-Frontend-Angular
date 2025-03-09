@@ -1,14 +1,46 @@
-<div class="h-screen w-64 bg-gray-800 text-white flex flex-col p-4">
-    <h2 class="text-xl font-bold mb-6">Dashboard</h2>
+<div class="h-screen w-64 bg-gradient-to-b from-gray-900 to-gray-800 text-white flex flex-col p-6 shadow-xl border-r border-gray-700">
+    <h2 class="text-2xl font-bold mb-8 text-center tracking-wide uppercase text-gray-200">Dashboard</h2>
     
-    <nav class="flex flex-col space-y-4">
-        <a routerLink="/students" class="hover:bg-gray-700 p-2 rounded">🏠 Estudiantes</a>
-        <a routerLink="/schedules" class="hover:bg-gray-700 p-2 rounded">📅 Horarios</a>
-        <a routerLink="/courses" class="hover:bg-gray-700 p-2 rounded">📚 Cursos</a>
-        <a routerLink="/enrollments" class="hover:bg-gray-700 p-2 rounded">📅 Matriculas</a>
-        <a routerLink="/departments" class="hover:bg-gray-700 p-2 rounded">🏢 Departamentos</a>
-        <a routerLink="/grades" class="hover:bg-gray-700 p-2 rounded">📊 Calificaciones</a>
-        <a routerLink="/assessments" class="hover:bg-gray-700 p-2 rounded">📊 Evaluaciones</a>
-        <a routerLink="/professors" class="hover:bg-gray-700 p-2 rounded">👨‍🏫 Profesores</a>
+    <nav class="flex flex-col space-y-2">
+        <a routerLink="/students" class="flex items-center gap-4 text-lg font-medium p-3 rounded-lg transition-all duration-300 
+            bg-gray-800/50 hover:bg-gray-700/80 text-gray-300 hover:text-white">
+            <lucide-icon [name]="icons.users" class="w-6 h-6 text-gray-400 transition-all duration-300"></lucide-icon>
+            <span>Estudiantes</span>
+        </a>
+        <a routerLink="/schedules" class="flex items-center gap-4 text-lg font-medium p-3 rounded-lg transition-all duration-300 
+            bg-gray-800/50 hover:bg-gray-700/80 text-gray-300 hover:text-white">
+            <lucide-icon [name]="icons.calendar" class="w-6 h-6 text-gray-400 transition-all duration-300"></lucide-icon>
+            <span>Horarios</span>
+        </a>
+        <a routerLink="/courses" class="flex items-center gap-4 text-lg font-medium p-3 rounded-lg transition-all duration-300 
+            bg-gray-800/50 hover:bg-gray-700/80 text-gray-300 hover:text-white">
+            <lucide-icon [name]="icons.book" class="w-6 h-6 text-gray-400 transition-all duration-300"></lucide-icon>
+            <span>Cursos</span>
+        </a>
+        <a routerLink="/enrollments" class="flex items-center gap-4 text-lg font-medium p-3 rounded-lg transition-all duration-300 
+            bg-gray-800/50 hover:bg-gray-700/80 text-gray-300 hover:text-white">
+            <lucide-icon [name]="icons.clipboardList" class="w-6 h-6 text-gray-400 transition-all duration-300"></lucide-icon>
+            <span>Matrículas</span>
+        </a>
+        <a routerLink="/departments" class="flex items-center gap-4 text-lg font-medium p-3 rounded-lg transition-all duration-300 
+            bg-gray-800/50 hover:bg-gray-700/80 text-gray-300 hover:text-white">
+            <lucide-icon [name]="icons.building" class="w-6 h-6 text-gray-400 transition-all duration-300"></lucide-icon>
+            <span>Departamentos</span>
+        </a>
+        <a routerLink="/grades" class="flex items-center gap-4 text-lg font-medium p-3 rounded-lg transition-all duration-300 
+            bg-gray-800/50 hover:bg-gray-700/80 text-gray-300 hover:text-white">
+            <lucide-icon [name]="icons.trendingUp" class="w-6 h-6 text-gray-400 transition-all duration-300"></lucide-icon>
+            <span>Calificaciones</span>
+        </a>
+        <a routerLink="/assessments" class="flex items-center gap-4 text-lg font-medium p-3 rounded-lg transition-all duration-300 
+            bg-gray-800/50 hover:bg-gray-700/80 text-gray-300 hover:text-white">
+            <lucide-icon [name]="icons.clipboardCheck" class="w-6 h-6 text-gray-400 transition-all duration-300"></lucide-icon>
+            <span>Evaluaciones</span>
+        </a>
+        <a routerLink="/professors" class="flex items-center gap-4 text-lg font-medium p-3 rounded-lg transition-all duration-300 
+            bg-gray-800/50 hover:bg-gray-700/80 text-gray-300 hover:text-white">
+            <lucide-icon [name]="icons.user" class="w-6 h-6 text-gray-400 transition-all duration-300"></lucide-icon>
+            <span>Profesores</span>
+        </a>
     </nav>
 </div>

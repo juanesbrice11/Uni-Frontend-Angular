@@ -1,31 +1,39 @@
-<div class="container mx-auto mt-8">
-    <h2 class="text-lg font-semibold mb-4">Lista de Horarios</h2>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-950 p-6">
+    <div class="w-full max-w-4xl bg-gray-800 text-white rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-semibold text-center text-gray-200 mb-6 tracking-wide">
+            Lista de Horarios
+        </h2>
 
-    <table class="w-full border-collapse border border-gray-200">
-        <thead>
-            <tr class="bg-gray-100">
-                <th class="border p-2">Día</th>
-                <th class="border p-2">Curso</th>
-                <th class="border p-2">Hora de Inicio</th>
-                <th class="border p-2">Hora de Fin</th>
-                <th class="border p-2">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let schedule of schedules">
-                <td class="border p-2">{{ schedule.day }}</td>
-                <td class="border p-2">{{ schedule.courseName }}</td>
-                <td class="border p-2">{{ schedule.startTime }}</td>
-                <td class="border p-2">{{ schedule.endTime }}</td>
-                <td class="border p-2">
-                    <button (click)="editSchedule(schedule.id)" class="bg-yellow-500 text-white px-3 py-1 rounded">
-                        <lucide-icon [name]="'edit'"></lucide-icon>
-                    </button>
-                    <button (click)="deleteSchedule(schedule.id)" class="bg-red-500 text-white px-3 py-1 rounded ml-2">
-                        <lucide-icon [name]="'trash-2'"></lucide-icon>
-                    </button>                    
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse border border-gray-700 text-gray-200">
+                <thead>
+                    <tr class="bg-gray-700">
+                        <th class="border border-gray-600 p-3">Día</th>
+                        <th class="border border-gray-600 p-3">Curso</th>
+                        <th class="border border-gray-600 p-3">Hora de Inicio</th>
+                        <th class="border border-gray-600 p-3">Hora de Fin</th>
+                        <th class="border border-gray-600 p-3">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let schedule of schedules" class="hover:bg-gray-700 transition-all">
+                        <td class="border border-gray-600 p-3 text-center">{{ schedule.day }}</td>
+                        <td class="border border-gray-600 p-3 text-center">{{ schedule.courseName }}</td>
+                        <td class="border border-gray-600 p-3 text-center">{{ schedule.startTime }}</td>
+                        <td class="border border-gray-600 p-3 text-center">{{ schedule.endTime }}</td>
+                        <td class="border border-gray-600 p-3 flex justify-center gap-2">
+                            <button (click)="editSchedule(schedule.id)" 
+                                class="bg-yellow-500 hover:bg-yellow-400 text-white px-3 py-1 rounded transition-all duration-300">
+                                <lucide-icon [name]="'edit'"></lucide-icon>
+                            </button>
+                            <button (click)="deleteSchedule(schedule.id)" 
+                                class="bg-red-500 hover:bg-red-400 text-white px-3 py-1 rounded transition-all duration-300">
+                                <lucide-icon [name]="'trash-2'"></lucide-icon>
+                            </button>                    
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
