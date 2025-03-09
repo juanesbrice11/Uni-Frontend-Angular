@@ -1,29 +1,29 @@
-<div class="flex flex-col items-center justify-center">
-    <p class="mb-4 text-lg font-semibold">Lista de Departamentos</p>
+<div class="flex items-center justify-center min-h-screen p-6 bg-gray-950 text-white">
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-2xl">
+        <p class="mb-6 text-xl font-bold text-center">Lista de Departamentos</p>
 
-    <table class="border-collapse border border-gray-400 w-3/4">
-        <thead>
-            <tr class="bg-gray-200">
-                <th class="border border-gray-400 px-4 py-2">ID</th>
-                <th class="border border-gray-400 px-4 py-2">Nombre</th>
-                <th class="border border-gray-400 px-4 py-2">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let department of departments">
-                <td class="border border-gray-400 px-4 py-2">{{ department.id }}</td>
-                <td class="border border-gray-400 px-4 py-2">{{ department.name }}</td>
-                <td class="border border-gray-400 px-4 py-2 flex gap-2">
-                    <button (click)="editDepartment(department.id)" class="bg-yellow-500 text-white px-2 py-1 rounded">
-                        <lucide-icon [name]="EditIcon"></lucide-icon>
-                    </button>
-                    <button (click)="deleteDepartment(department.id)" class="bg-red-500 text-white px-2 py-1 rounded">
-                        <lucide-icon [name]="TrashIcon"></lucide-icon>
-                    </button>
-                    
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
+        <table class="w-full border border-gray-700 rounded-lg overflow-hidden">
+            <thead class="bg-gray-700 text-white">
+                <tr>
+                    <th class="px-4 py-3 text-left">ID</th>
+                    <th class="px-4 py-3 text-left">Nombre</th>
+                    <th class="px-4 py-3 text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let department of departments" class="border-b border-gray-600 hover:bg-gray-700 transition">
+                    <td class="px-4 py-3">{{ department.id }}</td>
+                    <td class="px-4 py-3">{{ department.name }}</td>
+                    <td class="px-4 py-3 flex justify-center gap-2">
+                        <button (click)="editDepartment(department.id)" class="bg-yellow-500 hover:bg-yellow-400 text-white px-3 py-2 rounded transition">
+                            <lucide-icon name="edit"></lucide-icon>
+                        </button>
+                        <button (click)="deleteDepartment(department.id)" class="bg-red-500 hover:bg-red-400 text-white px-3 py-2 rounded transition">
+                            <lucide-icon name="trash-2"></lucide-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

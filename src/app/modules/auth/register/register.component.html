@@ -1,16 +1,23 @@
-<div class="flex flex-col items-center justify-center min-h-screen bg-white">
-    <div class="bg-white p-6 rounded shadow-md w-80">
-      <h2 class="text-2xl font-bold mb-4">Registro</h2>
-      
-      <form (ngSubmit)="onRegister()">
-        <input type="email" [(ngModel)]="user.email" name="email" placeholder="Correo" class="w-full p-2 border rounded mb-2" required>
-        <input type="password" [(ngModel)]="user.password" name="password" placeholder="Contraseña" class="w-full p-2 border rounded mb-2" required>
-        <button type="submit" class="w-full bg-green-500 text-white p-2 rounded">Registrarse</button>
-      </form>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-900">
+  <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-80 text-gray-300">
+    <h2 class="text-2xl font-bold mb-4 text-white text-center">Registro</h2>
+    
+    <form (ngSubmit)="onRegister()" class="flex flex-col gap-2">
+      <input type="email" [(ngModel)]="user.email" name="email" placeholder="Correo"
+        class="w-full p-2 border border-gray-600 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
 
-      <p class="mt-4 text-sm">
-        ¿Ya tienes cuenta?
-        <a routerLink="/login" class="text-blue-600">Inicia sesión</a>
-      </p>
-    </div>
+      <input type="password" [(ngModel)]="user.password" name="password" placeholder="Contraseña"
+        class="w-full p-2 border border-gray-600 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+
+      <button type="submit"
+        class="w-full bg-green-600 hover:bg-green-500 text-white p-2 rounded transition duration-300">
+        Registrarse
+      </button>
+    </form>
+
+    <p class="mt-4 text-sm text-gray-400 text-center">
+      ¿Ya tienes cuenta?
+      <a routerLink="/login" class="text-blue-500 hover:text-blue-400 transition duration-300">Inicia sesión</a>
+    </p>
   </div>
+</div>

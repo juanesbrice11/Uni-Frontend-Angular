@@ -1,32 +1,36 @@
-<div class="p-4">
-    <h2 class="text-xl font-bold mb-4">Lista de Calificaciones</h2>
-    
-    <table class="w-full border-collapse border border-gray-300">
-        <thead>
-            <tr class="bg-gray-200">
-                <th class="border p-2">Estudiante</th>
-                <th class="border p-2">Evaluación</th>
-                <th class="border p-2">Calificación</th>
-                <th class="border p-2">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let grade of grades">
-                <td class="border p-2">{{ grade.studentName }}</td>
-                <td class="border p-2">{{ grade.assessmentName }}</td>
-                <td class="border p-2">{{ grade.score }}</td>
-                <td class="border p-2 flex gap-2">
-                    <button class="bg-yellow-500 text-white px-3 py-1 rounded" (click)="editGrade(grade.id)">
-                        <lucide-icon [name]="'edit'"></lucide-icon>
-                    </button>
-                    <button class="bg-red-500 text-white px-3 p-1 rounded" (click)="deleteGrade(grade.id)">
-                        <lucide-icon [name]="'trash-2'"></lucide-icon>
-                    </button>
-                    
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <button class="mt-4 bg-gray-500 text-white p-2 rounded" (click)="goBack()">Volver</button>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-950 text-white p-6">
+    <h2 class="text-2xl font-semibold mb-6 text-center tracking-wide">Lista de Calificaciones</h2>
+
+    <div class="w-full max-w-4xl bg-gray-800 p-6 rounded-lg shadow-lg">
+        <table class="w-full border-collapse text-left rounded-lg overflow-hidden">
+            <thead>
+                <tr class="bg-gray-700 text-gray-200 uppercase text-sm">
+                    <th class="p-3 text-center">Estudiante</th>
+                    <th class="p-3 text-center">Evaluación</th>
+                    <th class="p-3 text-center">Calificación</th>
+                    <th class="p-3 text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let grade of grades" class="border-b border-gray-700 hover:bg-gray-750 transition text-center">
+                    <td class="p-3">{{ grade.studentName }}</td>
+                    <td class="p-3">{{ grade.assessmentName }}</td>
+                    <td class="p-3">{{ grade.score }}</td>
+                    <td class="p-3 flex justify-center gap-2">
+                        <button (click)="editGrade(grade.id)" class="bg-yellow-500 hover:bg-yellow-400 text-white px-3 py-1 rounded-lg shadow-md transition-all">
+                            <lucide-icon [name]="'edit'"></lucide-icon>
+                        </button>
+                        <button (click)="deleteGrade(grade.id)" class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-lg shadow-md transition-all">
+                            <lucide-icon [name]="'trash-2'"></lucide-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button (click)="goBack()" 
+        class="mt-6 px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white font-semibold rounded-lg shadow-md transition-all">
+        Volver
+    </button>
 </div>

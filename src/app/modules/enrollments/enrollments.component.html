@@ -1,31 +1,36 @@
-<div class="flex flex-col items-center justify-center">
-    <p class="mb-4 text-lg font-semibold">Inscripción de Estudiante a Curso:</p>
+<div class="flex items-center justify-center min-h-screen bg-gray-950 text-white p-6">
+    <div class="bg-gray-900 p-6 rounded-lg shadow-lg w-full max-w-md">
+        <p class="mb-6 text-xl font-semibold text-center">Inscripción de Estudiante a Curso</p>
 
-    <form (ngSubmit)="saveEnrollment()" class="w-80 flex flex-col gap-4">
-        <select [(ngModel)]="enrollment.studentId" name="studentId" required class="border p-2 rounded w-full mb-4">
-            <option value="" disabled selected>Seleccione un estudiante</option>
-            <option *ngFor="let student of students" [value]="student.id">
-                {{ student.name }}
-            </option>
-        </select>
+        <form (ngSubmit)="saveEnrollment()" class="w-full flex flex-col gap-4">
+            <select [(ngModel)]="enrollment.studentId" name="studentId" required 
+                class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="" disabled selected>Seleccione un estudiante</option>
+                <option *ngFor="let student of students" [value]="student.id">
+                    {{ student.name }}
+                </option>
+            </select>
 
-        <select [(ngModel)]="enrollment.courseId" name="courseId" required class="border p-2 rounded w-full mb-4">
-            <option value="" disabled selected>Seleccione un curso</option>
-            <option *ngFor="let course of courses" [value]="course.id">
-                {{ course.name }}
-            </option>
-        </select>
+            <select [(ngModel)]="enrollment.courseId" name="courseId" required 
+                class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="" disabled selected>Seleccione un curso</option>
+                <option *ngFor="let course of courses" [value]="course.id">
+                    {{ course.name }}
+                </option>
+            </select>
 
-        <input 
-            type="date" 
-            [(ngModel)]="enrollment.enrollmentDate" 
-            name="enrollmentDate" 
-            required 
-            class="border p-2 rounded w-full mb-4"
-        />
+            <input type="date" [(ngModel)]="enrollment.enrollmentDate" name="enrollmentDate" required 
+                class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-center" />
 
-        <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full">Guardar Inscripción</button>
-        <button (click)="goToEnrollments()" class="bg-green-500 text-white p-2 rounded w-full mt-4">Ver Matriculas</button>
+            <button type="submit" 
+                class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg shadow-md transition-all">
+                Guardar Inscripción
+            </button>
 
-    </form>
+            <button (click)="goToEnrollments()" type="button"
+                class="w-full px-4 py-2 bg-green-600 hover:bg-green-500 text-white font-semibold rounded-lg shadow-md transition-all">
+                Ver Matrículas
+            </button>
+        </form>
+    </div>
 </div>

@@ -1,19 +1,24 @@
-<div class="p-4">
-  <h2 class="text-xl font-bold mb-4">Prerrequisitos del Curso</h2>
+<div class="p-6 bg-gray-950 min-h-screen text-gray-300 flex flex-col items-center justify-center">
+  <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-96">
+    <h2 class="text-xl font-bold mb-4 text-white text-center">Prerrequisitos del Curso</h2>
 
-  <div *ngIf="prerequisites.length > 0; else noPrerequisites">
-    <ul class="list-disc pl-5">
-      <li *ngFor="let prerequisite of prerequisites" class="mb-2">
-        {{ prerequisite.name }}
-      </li>
-    </ul>
+    <div *ngIf="prerequisites.length > 0; else noPrerequisites">
+      <ul class="list-disc pl-5 space-y-2">
+        <li *ngFor="let prerequisite of prerequisites" class="text-gray-300">
+          {{ prerequisite.name }}
+        </li>
+      </ul>
+    </div>
+
+    <ng-template #noPrerequisites>
+      <p class="text-gray-400 text-center">Este curso no tiene prerrequisitos.</p>
+    </ng-template>
+
+    <button 
+      (click)="goBack()" 
+      class="bg-blue-600 text-white px-4 py-2 rounded w-full mt-4 hover:bg-blue-500 transition duration-300"
+    >
+      Volver
+    </button>
   </div>
-
-  <ng-template #noPrerequisites>
-    <p class="text-gray-500">Este curso no tiene prerrequisitos.</p>
-  </ng-template>
-
-  <button (click)="goBack()" class="bg-blue-500 text-white px-3 py-1 rounded mt-4">
-    Volver
-  </button>
 </div>

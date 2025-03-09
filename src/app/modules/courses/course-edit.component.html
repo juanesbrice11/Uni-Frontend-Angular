@@ -1,37 +1,55 @@
-<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
-    <h2 class="text-xl font-semibold mb-4">Editar Curso</h2>
+<div class="max-w-2xl mx-auto mt-12 p-8 bg-gray-900 rounded-xl shadow-2xl border border-gray-800 text-gray-300">
+    <h2 class="text-2xl font-semibold mb-6 text-white text-center tracking-wide">Editar Curso</h2>
 
-    <label class="block mb-2">Nombre</label>
-    <input type="text" [(ngModel)]="course.name" class="border p-2 w-full mb-4" />
+    <!-- Nombre -->
+    <label class="block mb-2 text-gray-400 text-sm font-medium">Nombre</label>
+    <input type="text" [(ngModel)]="course.name" 
+        class="border border-gray-700 bg-gray-800 text-white p-3 w-full mb-5 rounded-lg shadow-sm transition-all 
+               duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
 
-    <label class="block mb-2">Descripción</label>
-    <input type="text" [(ngModel)]="course.description" class="border p-2 w-full mb-4" />
+    <!-- Descripción -->
+    <label class="block mb-2 text-gray-400 text-sm font-medium">Descripción</label>
+    <input type="text" [(ngModel)]="course.description" 
+        class="border border-gray-700 bg-gray-800 text-white p-3 w-full mb-5 rounded-lg shadow-sm transition-all 
+               duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
 
-    <label class="block mb-2">Profesor</label>
-    <select [(ngModel)]="course.professorId" class="border p-2 w-full mb-4">
+    <!-- Profesor -->
+    <label class="block mb-2 text-gray-400 text-sm font-medium">Profesor</label>
+    <select [(ngModel)]="course.professorId" 
+        class="border border-gray-700 bg-gray-800 text-white p-3 w-full mb-5 rounded-lg shadow-sm transition-all 
+               duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
         <option *ngFor="let professor of professors" [value]="professor.id">
             {{ professor.name }}
         </option>
     </select>
 
-    <p class="mb-2 text-sm font-medium">Seleccione los cursos prerrequisitos:</p>
-    <div class="flex flex-wrap gap-2 mb-4">
-        <label *ngFor="let prerequisite of prerequisites" class="flex items-center space-x-2">
+    <!-- Prerrequisitos -->
+    <p class="mb-3 text-sm font-medium text-gray-400">Seleccione los cursos prerrequisitos:</p>
+    <div class="flex flex-wrap gap-3 mb-6">
+        <label *ngFor="let prerequisite of prerequisites" 
+               class="flex items-center space-x-2 px-3 py-2 bg-gray-800 rounded-lg text-gray-300 cursor-pointer 
+                      transition-all duration-200 hover:bg-gray-700">
             <input 
                 type="checkbox" 
                 [value]="prerequisite.id" 
                 (change)="togglePrerequisite(prerequisite.id)" 
                 [checked]="course.prerequisiteIds.includes(prerequisite.id)" 
+                class="form-checkbox text-blue-500 accent-blue-500 cursor-pointer" 
             />
             <span>{{ prerequisite.name }}</span>
         </label>
     </div>
 
-    <div class="flex justify-end gap-2">
-        <button (click)="saveChanges()" class="bg-green-500 text-white px-4 py-2 rounded">
+    <!-- Botones -->
+    <div class="flex justify-end gap-3">
+        <button (click)="saveChanges()" 
+            class="bg-green-600 hover:bg-green-500 text-white px-5 py-2.5 rounded-lg font-medium shadow-lg 
+                   transition-all duration-200">
             Guardar
         </button>
-        <button (click)="cancel()" class="bg-gray-500 text-white px-4 py-2 rounded">
+        <button (click)="cancel()" 
+            class="bg-gray-700 hover:bg-gray-600 text-white px-5 py-2.5 rounded-lg font-medium shadow-lg 
+                   transition-all duration-200">
             Cancelar
         </button>
     </div>

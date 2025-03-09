@@ -1,10 +1,21 @@
-<div class="flex flex-col items-center justify-center">
-    <p class="mb-4 text-lg font-semibold">Creación de un Departamento:</p>
-    
-    <form (ngSubmit)="saveDepartment()" class="w-80 flex flex-col gap-4">
-        <input type="text" [(ngModel)]="department.name" name="department" placeholder="Nombre del Departamento" required class="border p-2 rounded w-full mb-4" />
-        <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full">Guardar departamento</button>
-    </form>
-    
-    <button (click)="goToDepartmentsList()" class="mt-4 bg-green-500 text-white p-2 rounded">Ver Departamentos</button>
+<div class="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-950 text-white">
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
+        <p class="mb-6 text-xl font-bold text-center">Creación de un Departamento</p>
+
+        <form (ngSubmit)="saveDepartment()" class="w-full flex flex-col gap-4">
+            <input type="text" [(ngModel)]="department.name" name="department" 
+                placeholder="Nombre del Departamento" required 
+                class="border border-gray-700 p-3 rounded-lg w-full bg-gray-900 focus:ring-2 focus:ring-blue-500"
+            />
+            <button type="submit" 
+                class="bg-blue-500 hover:bg-blue-400 text-white p-3 rounded-lg w-full font-semibold transition duration-300">
+                Guardar departamento
+            </button>
+        </form>
+
+        <button (click)="goToDepartmentsList()" 
+            class="mt-4 bg-green-500 hover:bg-green-400 text-white p-3 rounded-lg w-full font-semibold transition duration-300">
+            Ver Departamentos
+        </button>
+    </div>
 </div>

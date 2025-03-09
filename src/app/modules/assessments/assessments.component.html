@@ -1,18 +1,27 @@
-<div class="flex flex-col items-center justify-center">
-    <p class="mb-4 text-lg font-semibold">Creación de una Evaluación:</p>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-950">
+  <div class="bg-gray-800 p-8 rounded-2xl shadow-lg w-96">
+    <p class="mb-6 text-xl font-semibold text-white text-center">Creación de Evaluación</p>
     
-    <form (ngSubmit)="saveAssessment()" class="w-80 flex flex-col gap-4">
-        <select [(ngModel)]="assessment.courseId" name="courseId" required class="border p-2 rounded w-full mb-4">
-            <option value="" disabled selected>Seleccione un curso</option>
-            <option *ngFor="let course of courses" [value]="course.id">
-                {{ course.name }}
-            </option>
-        </select>
+    <form (ngSubmit)="saveAssessment()" class="flex flex-col gap-4">
+      <select [(ngModel)]="assessment.courseId" name="courseId" required 
+        class="border border-gray-600 bg-gray-700 text-white p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="" disabled selected>Seleccione un curso</option>
+        <option *ngFor="let course of courses" [value]="course.id">
+          {{ course.name }}
+        </option>
+      </select>
 
-        <input type="text" [(ngModel)]="assessment.name" name="name" placeholder="Nombre de la Evaluación" required class="border p-2 rounded w-full mb-4" />
-        <input type="date" [(ngModel)]="assessment.date" name="date" required class="border p-2 rounded w-full mb-4" />
+      <input type="text" [(ngModel)]="assessment.name" name="name" placeholder="Nombre de la Evaluación" required 
+        class="border border-gray-600 bg-gray-700 text-white p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
 
-        <button type="submit" class="bg-blue-500 text-white p-2 rounded w-full">Guardar Evaluación</button>
-        <button (click)="goToAssessments()" class="bg-green-500 text-white p-2 rounded w-full mt-4">Ver Evaluaciones</button>
+      <input type="date" [(ngModel)]="assessment.date" name="date" required 
+        class="border border-gray-600 bg-gray-700 text-white p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+      <button type="submit" 
+        class="w-full bg-blue-600 text-white p-3 rounded-lg font-medium hover:bg-blue-500 transition duration-300">Guardar Evaluación</button>
+      
+      <button (click)="goToAssessments()" 
+        class="w-full bg-green-600 text-white p-3 rounded-lg font-medium hover:bg-green-500 transition duration-300">Ver Evaluaciones</button>
     </form>
+  </div>
 </div>

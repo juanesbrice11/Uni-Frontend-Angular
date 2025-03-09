@@ -1,67 +1,77 @@
-<div class="p-4">
-    <h2 class="text-lg font-semibold mb-4">Lista de Inscripciones</h2>
+<div class="flex items-center justify-center min-h-screen bg-gray-950 text-white p-6">
+    <div class="p-6 bg-gray-900 text-white rounded-lg shadow-lg w-full max-w-4xl">
+        <h2 class="text-xl font-bold mb-6 text-center">Lista de Inscripciones</h2>
 
-    <table class="border w-full text-left">
-        <thead>
-            <tr>
-                <th class="border p-2">ID</th>
-                <th class="border p-2">Estudiante</th>
-                <th class="border p-2">Curso</th>
-                <th class="border p-2">Fecha de Inscripción</th>
-                <th class="border p-2">Nota Final</th>
-                <th class="border p-2">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let enrollment of enrollments">
-                <td class="border p-2">{{ enrollment.id }}</td>
-                <td class="border p-2">{{ enrollment.student?.name || 'Desconocido' }}</td>
-                <td class="border p-2">{{ enrollment.course?.name || 'Desconocido' }}</td>
-                <td class="border p-2">{{ enrollment.enrollmentDate }}</td>
-                <td class="border p-2">{{ enrollment.finalGrade ?? 'N/A' }}</td>
-                <td class="border p-2 flex gap-2">
-                    <button (click)="editEnrollment(enrollment)" class="bg-yellow-500 text-white px-3 py-1 rounded">
-                        <lucide-icon [name]="'edit'"></lucide-icon>
-                    </button>
-                    <button (click)="deleteEnrollment(enrollment.id)" class="bg-red-500 text-white px-3 py-1 rounded">
-                        <lucide-icon [name]="'trash-2'"></lucide-icon>
-                    </button>
-                    
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="overflow-x-auto">
+            <table class="w-full border border-gray-700 text-left text-sm">
+                <thead class="bg-gray-800">
+                    <tr>
+                        <th class="border border-gray-700 p-3">ID</th>
+                        <th class="border border-gray-700 p-3">Estudiante</th>
+                        <th class="border border-gray-700 p-3">Curso</th>
+                        <th class="border border-gray-700 p-3">Fecha de Inscripción</th>
+                        <th class="border border-gray-700 p-3">Nota Final</th>
+                        <th class="border border-gray-700 p-3">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let enrollment of enrollments" class="odd:bg-gray-800 even:bg-gray-700">
+                        <td class="border border-gray-700 p-3">{{ enrollment.id }}</td>
+                        <td class="border border-gray-700 p-3">{{ enrollment.student?.name || 'Desconocido' }}</td>
+                        <td class="border border-gray-700 p-3">{{ enrollment.course?.name || 'Desconocido' }}</td>
+                        <td class="border border-gray-700 p-3">{{ enrollment.enrollmentDate }}</td>
+                        <td class="border border-gray-700 p-3">{{ enrollment.finalGrade ?? 'N/A' }}</td>
+                        <td class="border border-gray-700 p-3 flex justify-center gap-2">
+                            <button (click)="editEnrollment(enrollment)" class="bg-yellow-500 hover:bg-yellow-400 text-black px-3 py-1 rounded">
+                                <lucide-icon [name]="'edit'"></lucide-icon>
+                            </button>
+                            <button (click)="deleteEnrollment(enrollment.id)" class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded">
+                                <lucide-icon [name]="'trash-2'"></lucide-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <div *ngIf="selectedEnrollment" class="bg-gray-100 p-4 rounded-lg mt-4">
-        <h3 class="text-lg font-semibold mb-2">Editar Inscripción</h3>
+        <!-- Modal de edición -->
+        <div *ngIf="selectedEnrollment" class="bg-gray-800 p-6 rounded-lg mt-6 shadow-lg">
+            <h3 class="text-lg font-semibold mb-4 text-center">Editar Inscripción</h3>
 
-        <label class="block mb-2">Estudiante</label>
-        <select [(ngModel)]="selectedEnrollment.student.id" class="border p-2 w-full mb-4">
-            <option *ngFor="let student of students" [value]="student.id">
-                {{ student.name }}
-            </option>
-        </select>
+            <label class="block mb-2 text-gray-300">Estudiante</label>
+            <select [(ngModel)]="selectedEnrollment.student.id"
+                class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring focus:ring-blue-500 mb-4">
+                <option *ngFor="let student of students" [value]="student.id">
+                    {{ student.name }}
+                </option>
+            </select>
 
-        <label class="block mb-2">Curso</label>
-        <select [(ngModel)]="selectedEnrollment.course.id" class="border p-2 w-full mb-4">
-            <option *ngFor="let course of courses" [value]="course.id">
-                {{ course.name }}
-            </option>
-        </select>
+            <label class="block mb-2 text-gray-300">Curso</label>
+            <select [(ngModel)]="selectedEnrollment.course.id"
+                class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring focus:ring-blue-500 mb-4">
+                <option *ngFor="let course of courses" [value]="course.id">
+                    {{ course.name }}
+                </option>
+            </select>
 
-        <label class="block mb-2">Fecha de Inscripción</label>
-        <input type="date" [(ngModel)]="selectedEnrollment.enrollmentDate" class="border p-2 w-full mb-4" />
+            <label class="block mb-2 text-gray-300">Fecha de Inscripción</label>
+            <input type="date" [(ngModel)]="selectedEnrollment.enrollmentDate"
+                class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring focus:ring-blue-500 mb-4" />
 
-        <label class="block mb-2">Nota Final</label>
-        <input type="number" [(ngModel)]="selectedEnrollment.finalGrade" class="border p-2 w-full mb-4" />
+            <label class="block mb-2 text-gray-300">Nota Final</label>
+            <input type="number" [(ngModel)]="selectedEnrollment.finalGrade"
+                class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring focus:ring-blue-500 mb-4" />
 
-        <div class="flex justify-end gap-2">
-            <button (click)="updateEnrollment()" class="bg-green-500 text-white px-4 py-2 rounded">
-                Guardar
-            </button>
-            <button (click)="closeEdit()" class="bg-gray-500 text-white px-4 py-2 rounded">
-                Cancelar
-            </button>
+            <div class="flex justify-end gap-2">
+                <button (click)="updateEnrollment()"
+                    class="bg-green-500 hover:bg-green-400 text-black px-4 py-2 rounded font-semibold">
+                    Guardar
+                </button>
+                <button (click)="closeEdit()"
+                    class="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded">
+                    Cancelar
+                </button>
+            </div>
         </div>
     </div>
 </div>

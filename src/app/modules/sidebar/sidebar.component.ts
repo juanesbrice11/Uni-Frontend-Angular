@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { LucideAngularModule, User, Calendar, Book, ClipboardList, Building, TrendingUp, ClipboardCheck, Users, LogOut } from 'lucide-angular';
 import { RouterModule } from '@angular/router';
-import { LucideAngularModule, User, Calendar, Book, ClipboardList, Building, TrendingUp, ClipboardCheck, Users } from 'lucide-angular';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,6 +15,8 @@ import { LucideAngularModule, User, Calendar, Book, ClipboardList, Building, Tre
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {
+  constructor(private router: Router) {} 
+
   icons = {
     users: Users,
     calendar: Calendar,
@@ -22,6 +25,13 @@ export class SidebarComponent {
     building: Building,
     trendingUp: TrendingUp, 
     clipboardCheck: ClipboardCheck,
-    user: User
+    user: User,
+    logout: LogOut
   };
+
+  logout() {
+    localStorage.removeItem('token');  
+    window.location.reload();
+    this.router.navigate(['/login']);  
+  }
 }

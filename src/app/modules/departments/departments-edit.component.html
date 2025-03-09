@@ -1,16 +1,18 @@
-<div class="flex flex-col items-center justify-center">
-    <p class="mb-4 text-lg font-semibold">Editar Departamento</p>
+<div class="flex items-center justify-center min-h-screen p-6 bg-gray-950 text-white">
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
+        <p class="mb-6 text-xl font-bold text-center">Editar Departamento</p>
 
-    <form (ngSubmit)="updateDepartment()" class="w-80 flex flex-col gap-4">
-        <input type="text" [(ngModel)]="department.name" name="name" placeholder="Nombre" required 
-            class="border p-2 rounded w-full mb-4" />
+        <form (ngSubmit)="updateDepartment()" class="w-full flex flex-col gap-4">
+            <input type="text" [(ngModel)]="department.name" name="name" placeholder="Nombre del Departamento" required
+                class="border border-gray-700 bg-gray-800 text-white p-3 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
 
-        <button type="submit" class="bg-green-500 text-white p-2 rounded w-full">
-            Guardar Cambios
-        </button>
+            <button type="submit" class="bg-green-500 hover:bg-green-400 text-white p-3 rounded w-full transition">
+                Guardar Cambios
+            </button>
 
-        <button type="button" (click)="cancel()" class="bg-gray-500 text-white p-2 rounded w-full">
-            Cancelar
-        </button>
-    </form>
+            <button type="button" (click)="cancel()" class="bg-gray-500 hover:bg-gray-400 text-white p-3 rounded w-full transition">
+                Cancelar
+            </button>
+        </form>
+    </div>
 </div>
