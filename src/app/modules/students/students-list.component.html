@@ -12,47 +12,42 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let student of students" class="border-b border-gray-700 hover:bg-gray-750 transition text-center">
+                <tr *ngFor="let student of students | paginate: { itemsPerPage: 5, currentPage: page }"
+                    class="border-b border-gray-700 hover:bg-gray-750 transition text-center">
                     <td class="p-3">{{ student.studentId }}</td>
                     <td class="p-3">{{ student.name }}</td>
                     <td class="p-3">{{ student.birthDate }}</td>
                     <td class="p-3 flex justify-center gap-2">
-                        <button (click)="editStudent(student)" class="bg-yellow-500 hover:bg-yellow-400 text-white px-3 py-1 rounded-lg shadow-md transition-all">
-                            <lucide-icon [name]="'edit'"></lucide-icon>
+                        <button (click)="editStudent(student)" 
+                            class="bg-yellow-500 hover:bg-yellow-400 text-white px-3 py-1 rounded-lg shadow-md transition-all">
+                            <lucide-icon name="edit"></lucide-icon>
                         </button>
-                        <button (click)="deleteStudent(student.id)" class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-lg shadow-md transition-all">
-                            <lucide-icon [name]="'trash-2'"></lucide-icon>
+                        <button (click)="deleteStudent(student.id)" 
+                            class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-lg shadow-md transition-all">
+                            <lucide-icon name="trash-2"></lucide-icon>
                         </button>
-                    </td>
-                </tr>
-
-                <tr *ngIf="selectedStudent">
-                    <td colspan="4">
-                        <div class="flex flex-col items-center bg-gray-700 p-6 rounded-lg mt-4 shadow-md">
-                            <h3 class="text-lg font-semibold mb-3 text-gray-100 text-center">Editar Estudiante</h3>
-
-                            <label class="block text-gray-300 mb-2 text-center">Nombre</label>
-                            <input type="text" [(ngModel)]="selectedStudent.name" 
-                                class="w-3/4 px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 text-center" />
-
-                            <label class="block text-gray-300 mb-2 text-center">Fecha de Nacimiento</label>
-                            <input type="date" [(ngModel)]="selectedStudent.birthDate" 
-                                class="w-3/4 px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 text-center" />
-
-                            <div class="flex justify-center gap-2">
-                                <button (click)="updateStudent(selectedStudent)" 
-                                    class="px-4 py-2 bg-green-600 hover:bg-green-500 text-white font-semibold rounded-lg shadow-md transition-all">
-                                    Guardar
-                                </button>
-                                <button (click)="closeEdit()" 
-                                    class="px-4 py-2 bg-gray-500 hover:bg-gray-400 text-white font-semibold rounded-lg shadow-md transition-all">
-                                    Cancelar
-                                </button>
-                            </div>
-                        </div>
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table>    
+
+        <!-- Paginación personalizada -->
+        <div class="mt-6 flex items-center justify-center gap-4">
+            <button (click)="previousPage()"
+                class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-full shadow-md transition-all flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                [disabled]="page === 1">
+                <
+            </button>
+
+            <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-lg shadow-md text-sm font-medium">
+                Página {{ page }} de {{ totalPages }}
+            </span>
+
+            <button (click)="nextPage()"
+                class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-full shadow-md transition-all flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                [disabled]="page === totalPages">
+                >
+            </button>
+        </div>
     </div>
 </div>

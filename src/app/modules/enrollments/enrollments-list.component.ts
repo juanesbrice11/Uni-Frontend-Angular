@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
     selector: 'app-enrollments-list',
     standalone: true,
-    imports: [CommonModule, FormsModule, LucideAngularModule],
+    imports: [CommonModule, FormsModule, LucideAngularModule, NgxPaginationModule],
     templateUrl: './enrollments-list.component.html'
 })
 export class EnrollmentsListComponent implements OnInit {
@@ -23,6 +24,10 @@ export class EnrollmentsListComponent implements OnInit {
     students: any[] = [];
     courses: any[] = [];
     selectedEnrollment: any = null;
+
+    page: number = 1;
+    itemsPerPage: number = 5;
+    totalPages: number = 1;
 
     constructor(private http: HttpClient, private authService: AuthService, private router: Router) {}
 
@@ -43,31 +48,10 @@ export class EnrollmentsListComponent implements OnInit {
         this.http.get<any[]>(this.apiUrl, this.getHeaders()).subscribe({
             next: (data) => {
                 this.enrollments = data;
+                this.totalPages = Math.ceil(this.enrollments.length / this.itemsPerPage);
             },
             error: (error) => {
                 console.error('Error al cargar inscripciones:', error);
-            }
-        });
-    }
-
-    loadStudents() {
-        this.http.get<any[]>(this.studentsUrl, this.getHeaders()).subscribe({
-            next: (data) => {
-                this.students = data;
-            },
-            error: (error) => {
-                console.error('Error al cargar estudiantes:', error);
-            }
-        });
-    }
-
-    loadCourses() {
-        this.http.get<any[]>(this.coursesUrl, this.getHeaders()).subscribe({
-            next: (data) => {
-                this.courses = data;
-            },
-            error: (error) => {
-                console.error('Error al cargar cursos:', error);
             }
         });
     }
@@ -91,21 +75,16 @@ export class EnrollmentsListComponent implements OnInit {
         this.router.navigate(['/enrollment-edit', enrollment.id]);
     }
 
-    updateEnrollment() {
-        this.http.put(`${this.apiUrl}/${this.selectedEnrollment.id}`, this.selectedEnrollment, this.getHeaders()).subscribe({
-            next: () => {
-                alert('Inscripción actualizada con éxito');
-                this.loadEnrollments();
-                this.selectedEnrollment = null;
-            },
-            error: (error) => {
-                console.error('Error al actualizar la inscripción:', error);
-                alert('Error al actualizar la inscripción');
-            }
-        });
+    // Métodos de paginación
+    previousPage() {
+        if (this.page > 1) {
+            this.page--;
+        }
     }
 
-    closeEdit() {
-        this.selectedEnrollment = null;
+    nextPage() {
+        if (this.page < this.totalPages) {
+            this.page++;
+        }
     }
 }

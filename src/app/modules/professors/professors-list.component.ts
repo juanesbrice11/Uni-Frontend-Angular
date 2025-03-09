@@ -4,12 +4,13 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
 
 @Component({
     selector: 'app-professors-list',
     standalone: true,
-    imports: [CommonModule, FormsModule, LucideAngularModule],
+    imports: [CommonModule, FormsModule, NgxPaginationModule, LucideAngularModule],
     templateUrl: './professors-list.component.html'
 })
 export class ProfessorsListComponent implements OnInit {
@@ -21,6 +22,11 @@ export class ProfessorsListComponent implements OnInit {
     professors: any[] = [];
     departments: any[] = [];
     selectedProfessor: any = null;
+
+    // Paginación
+    page: number = 1;
+    itemsPerPage: number = 5;
+    totalPages: number = 1;
 
     constructor(private router: Router, private http: HttpClient, private authService: AuthService) {}
 
@@ -42,6 +48,7 @@ export class ProfessorsListComponent implements OnInit {
         this.http.get<any[]>(this.apiUrl, this.getHeaders()).subscribe({
             next: (data) => {
                 this.professors = data;
+                this.totalPages = Math.ceil(this.professors.length / this.itemsPerPage);
             },
             error: (error) => {
                 console.error('Error al cargar profesores:', error);
@@ -100,5 +107,18 @@ export class ProfessorsListComponent implements OnInit {
 
     closeEdit() {
         this.selectedProfessor = null;
+    }
+
+    // Métodos para paginación
+    previousPage() {
+        if (this.page > 1) {
+            this.page--;
+        }
+    }
+
+    nextPage() {
+        if (this.page < this.totalPages) {
+            this.page++;
+        }
     }
 }

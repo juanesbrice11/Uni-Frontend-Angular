@@ -4,20 +4,27 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
+import { LucideAngularModule } from 'lucide-angular';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
     selector: 'app-assessments-list',
     standalone: true,
-    imports: [CommonModule, FormsModule, LucideAngularModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        NgxPaginationModule,
+        LucideAngularModule
+    ],
     templateUrl: './assessments-list.component.html'
 })
 export class AssessmentsListComponent implements OnInit {
-    readonly EditIcon = Edit;  
-    readonly TrashIcon = Trash2;
     apiUrl = 'http://localhost:3000/assessments';
     assessments: any[] = [];
     selectedAssessment: any = null;
+    page: number = 1;
+    itemsPerPage: number = 5;
+    totalPages: number = 1;
 
     constructor(
         private http: HttpClient, 
@@ -42,6 +49,7 @@ export class AssessmentsListComponent implements OnInit {
         this.http.get<any[]>(this.apiUrl, this.getHeaders()).subscribe({
             next: (data) => {
                 this.assessments = data;
+                this.totalPages = Math.ceil(this.assessments.length / this.itemsPerPage);
             },
             error: (error) => {
                 console.error('Error al cargar las evaluaciones:', error);
@@ -51,17 +59,10 @@ export class AssessmentsListComponent implements OnInit {
 
     deleteAssessment(id: number) {
         if (confirm('¿Estás seguro de eliminar esta evaluación?')) {
-            const token = this.authService.getToken(); 
-    
-            if (!token) {
-                alert('No tienes permisos para realizar esta acción');
-                return;
-            }
-    
             this.http.delete(`${this.apiUrl}/${id}`, this.getHeaders()).subscribe({
                 next: () => {
                     alert('Evaluación eliminada correctamente');
-                    this.loadAssessments(); 
+                    this.loadAssessments();
                 },
                 error: (error) => {
                     console.error('Error al eliminar la evaluación:', error);
@@ -76,22 +77,12 @@ export class AssessmentsListComponent implements OnInit {
     }
 
     updateAssessment(updatedAssessment: any) {
-        const token = this.authService.getToken();
-    
-        if (!token) {
-            alert('No tienes permisos para editar esta evaluación');
-            return;
-        }
-    
         if (!updatedAssessment.id) { 
-            console.error('La evaluación no tiene un ID válido:', updatedAssessment);
             alert('Error: La evaluación no tiene un ID válido');
             return;
         }
-    
-        this.http.patch(`${this.apiUrl}/${updatedAssessment.id}`, updatedAssessment, {
-            headers: { Authorization: `Bearer ${token}` }
-        }).subscribe({
+
+        this.http.patch(`${this.apiUrl}/${updatedAssessment.id}`, updatedAssessment, this.getHeaders()).subscribe({
             next: () => {
                 alert('Evaluación actualizada con éxito');
                 this.loadAssessments();
@@ -103,8 +94,21 @@ export class AssessmentsListComponent implements OnInit {
             }
         });
     }
-    
+
     closeEdit() {
         this.selectedAssessment = null;
+    }
+
+    // Métodos de paginación
+    previousPage() {
+        if (this.page > 1) {
+            this.page--;
+        }
+    }
+
+    nextPage() {
+        if (this.page < this.totalPages) {
+            this.page++;
+        }
     }
 }

@@ -1,21 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
     selector: 'app-departments-list',
-    imports: [ FormsModule, CommonModule, LucideAngularModule],
+    standalone: true,
+    imports: [FormsModule, CommonModule, LucideAngularModule, NgxPaginationModule],
     templateUrl: './departments-list.component.html',
-    })
-    export class DepartmentsListComponent implements OnInit {
-    readonly EditIcon = Edit;  
+})
+export class DepartmentsListComponent implements OnInit {
+    readonly EditIcon = Edit;
     readonly TrashIcon = Trash2;
     apiUrl = 'http://localhost:3000/departments';
     departments: any[] = [];
+    
+    page: number = 1;
+    itemsPerPage: number = 5;
+    totalPages: number = 1;
 
     constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
@@ -23,14 +29,24 @@ import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
         this.fetchDepartments();
     }
 
+    getHeaders() {
+        const token = this.authService.getToken();
+        return {
+            headers: new HttpHeaders({
+                Authorization: `Bearer ${token}`
+            })
+        };
+    }
+
     fetchDepartments() {
-        this.http.get(this.apiUrl).subscribe({
-        next: (data: any) => {
-            this.departments = data;
-        },
-        error: (error) => {
-            console.error('Error al obtener los departamentos:', error);
-        },
+        this.http.get<any[]>(this.apiUrl, this.getHeaders()).subscribe({
+            next: (data) => {
+                this.departments = data;
+                this.totalPages = Math.ceil(this.departments.length / this.itemsPerPage);
+            },
+            error: (error) => {
+                console.error('Error al obtener los departamentos:', error);
+            }
         });
     }
 
@@ -39,26 +55,30 @@ import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
     }
 
     deleteDepartment(id: number) {
-        const token = this.authService.getToken();
-
-        if (!token) {
-        alert('No tienes permisos para eliminar');
-        return;
-        }
-
         if (confirm('¿Estás seguro de eliminar este departamento?')) {
-        this.http.delete(`${this.apiUrl}/${id}`, {
-            headers: { Authorization: `Bearer ${token}` },
-        }).subscribe({
-            next: () => {
-            alert('Departamento eliminado con éxito');
-            this.fetchDepartments();
-            },
-            error: (error) => {
-            console.error('Error al eliminar:', error);
-            alert('Error al eliminar el departamento');
-            },
-        });
+            this.http.delete(`${this.apiUrl}/${id}`, this.getHeaders()).subscribe({
+                next: () => {
+                    alert('Departamento eliminado con éxito');
+                    this.fetchDepartments();
+                },
+                error: (error) => {
+                    console.error('Error al eliminar:', error);
+                    alert('Error al eliminar el departamento');
+                }
+            });
+        }
+    }
+
+    // Métodos de paginación
+    previousPage() {
+        if (this.page > 1) {
+            this.page--;
+        }
+    }
+
+    nextPage() {
+        if (this.page < this.totalPages) {
+            this.page++;
         }
     }
 }

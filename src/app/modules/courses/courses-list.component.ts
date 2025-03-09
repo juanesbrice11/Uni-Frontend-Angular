@@ -4,22 +4,27 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { LucideAngularModule, Edit, Trash2, List } from 'lucide-angular';
+import { LucideAngularModule } from 'lucide-angular';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
     selector: 'app-courses-list',
     standalone: true,
-    imports: [CommonModule, FormsModule, RouterModule, LucideAngularModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        NgxPaginationModule,
+        LucideAngularModule
+    ],
     templateUrl: './courses-list.component.html'
 })
 export class CoursesListComponent implements OnInit {
-    readonly EditIcon = Edit;  
-    readonly TrashIcon = Trash2;
-    readonly ListIcon = List;
     apiUrl = 'http://localhost:3000/courses';
     courses: any[] = [];
     selectedCourse: any = null;
+    page: number = 1;
+    itemsPerPage: number = 5;
+    totalPages: number = 1;
 
     constructor(
         private http: HttpClient, 
@@ -27,15 +32,12 @@ export class CoursesListComponent implements OnInit {
         private router: Router
     ) {}
 
-    professors: any[] = []; 
-
     ngOnInit() {
         this.loadCourses();
-        this.loadProfessors();
     }
 
     getHeaders() {
-        const token = localStorage.getItem('token'); 
+        const token = this.authService.getToken(); 
         return {
             headers: new HttpHeaders({
                 Authorization: `Bearer ${token}`
@@ -44,9 +46,10 @@ export class CoursesListComponent implements OnInit {
     }
 
     loadCourses() {
-        this.http.get<any[]>(this.apiUrl).subscribe({
+        this.http.get<any[]>(this.apiUrl, this.getHeaders()).subscribe({
             next: (data) => {
                 this.courses = data;
+                this.totalPages = Math.ceil(this.courses.length / this.itemsPerPage);
             },
             error: (error) => {
                 console.error('Error al cargar los cursos:', error);
@@ -54,32 +57,12 @@ export class CoursesListComponent implements OnInit {
         });
     }
 
-    loadProfessors() {
-        this.http.get<any[]>('http://localhost:3000/professors').subscribe({
-            next: (data) => {
-                this.professors = data;
-            },
-            error: (error) => {
-                console.error('Error al cargar profesores:', error);
-            }
-        });
-    }
-
     deleteCourse(id: number) {
         if (confirm('¿Estás seguro de eliminar este curso?')) {
-            const token = this.authService.getToken(); 
-    
-            if (!token) {
-                alert('No tienes permisos para realizar esta acción');
-                return;
-            }
-    
-            this.http.delete(`${this.apiUrl}/${id}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            }).subscribe({
+            this.http.delete(`${this.apiUrl}/${id}`, this.getHeaders()).subscribe({
                 next: () => {
                     alert('Curso eliminado correctamente');
-                    this.loadCourses(); 
+                    this.loadCourses();
                 },
                 error: (error) => {
                     console.error('Error al eliminar el curso:', error);
@@ -92,22 +75,17 @@ export class CoursesListComponent implements OnInit {
     editCourse(course: any) {
         this.router.navigate(['/course-edit', course.id]);  
     }
-    
 
     updateCourse(updatedCourse: any) {
-        const token = this.authService.getToken();
-    
-        if (!token) {
-            alert('No tienes permisos para editar este curso');
+        if (!updatedCourse.id) { 
+            alert('Error: El curso no tiene un ID válido');
             return;
         }
-    
-        this.http.put(`${this.apiUrl}/${updatedCourse.id}`, updatedCourse, {
-            headers: { Authorization: `Bearer ${token}` }
-        }).subscribe({
+
+        this.http.patch(`${this.apiUrl}/${updatedCourse.id}`, updatedCourse, this.getHeaders()).subscribe({
             next: () => {
                 alert('Curso actualizado con éxito');
-                this.loadCourses(); 
+                this.loadCourses();
                 this.selectedCourse = null;
             },
             error: (error) => {
@@ -116,15 +94,25 @@ export class CoursesListComponent implements OnInit {
             }
         });
     }
-    
 
     closeEdit() {
         this.selectedCourse = null;
     }
 
-    viewPrerequisites(courseId: number) {
-        this.router.navigate(['/course-prerequisites', courseId]);
+    // Métodos de paginación
+    previousPage() {
+        if (this.page > 1) {
+            this.page--;
+        }
     }
 
-    
+    nextPage() {
+        if (this.page < this.totalPages) {
+            this.page++;
+        }
+    }
+
+    viewPrerequisites(courseId: number) {
+        this.router.navigate(['/course-prerequisites', courseId]);  
+    }
 }

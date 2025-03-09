@@ -4,21 +4,27 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule, Edit, Trash2 } from 'lucide-angular';
-
+import { LucideAngularModule } from 'lucide-angular';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
     selector: 'app-students-list',
     standalone: true,
-    imports: [CommonModule, FormsModule, LucideAngularModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        NgxPaginationModule,
+        LucideAngularModule
+    ],
     templateUrl: './students-list.component.html'
 })
 export class StudentsListComponent implements OnInit {
-    readonly EditIcon = Edit;  
-    readonly TrashIcon = Trash2;
     apiUrl = 'http://localhost:3000/students';
     students: any[] = [];
     selectedStudent: any = null;
+    page: number = 1;
+    itemsPerPage: number = 5;
+    totalPages: number = 1;
 
     constructor(
         private http: HttpClient, 
@@ -43,6 +49,7 @@ export class StudentsListComponent implements OnInit {
         this.http.get<any[]>(this.apiUrl, this.getHeaders()).subscribe({
             next: (data) => {
                 this.students = data;
+                this.totalPages = Math.ceil(this.students.length / this.itemsPerPage);
             },
             error: (error) => {
                 console.error('Error al cargar los estudiantes:', error);
@@ -52,17 +59,10 @@ export class StudentsListComponent implements OnInit {
 
     deleteStudent(id: number) {
         if (confirm('¿Estás seguro de eliminar este estudiante?')) {
-            const token = this.authService.getToken(); 
-    
-            if (!token) {
-                alert('No tienes permisos para realizar esta acción');
-                return;
-            }
-    
             this.http.delete(`${this.apiUrl}/${id}`, this.getHeaders()).subscribe({
                 next: () => {
                     alert('Estudiante eliminado correctamente');
-                    this.loadStudents(); 
+                    this.loadStudents();
                 },
                 error: (error) => {
                     console.error('Error al eliminar el estudiante:', error);
@@ -77,22 +77,12 @@ export class StudentsListComponent implements OnInit {
     }
 
     updateStudent(updatedStudent: any) {
-        const token = this.authService.getToken();
-    
-        if (!token) {
-            alert('No tienes permisos para editar este estudiante');
-            return;
-        }
-    
         if (!updatedStudent.id) { 
-            console.error('El estudiante no tiene un ID válido:', updatedStudent);
             alert('Error: El estudiante no tiene un ID válido');
             return;
         }
-    
-        this.http.patch(`${this.apiUrl}/${updatedStudent.id}`, updatedStudent, {
-            headers: { Authorization: `Bearer ${token}` }
-        }).subscribe({
+
+        this.http.patch(`${this.apiUrl}/${updatedStudent.id}`, updatedStudent, this.getHeaders()).subscribe({
             next: () => {
                 alert('Estudiante actualizado con éxito');
                 this.loadStudents();
@@ -104,10 +94,21 @@ export class StudentsListComponent implements OnInit {
             }
         });
     }
-    
-    
 
     closeEdit() {
         this.selectedStudent = null;
+    }
+
+    // Métodos de paginación
+    previousPage() {
+        if (this.page > 1) {
+            this.page--;
+        }
+    }
+
+    nextPage() {
+        if (this.page < this.totalPages) {
+            this.page++;
+        }
     }
 }

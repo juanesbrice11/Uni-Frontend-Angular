@@ -16,7 +16,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let professor of professors" class="bg-gray-700 hover:bg-gray-600 transition-all">
+                    <tr *ngFor="let professor of professors | paginate: { itemsPerPage: 5, currentPage: page }" 
+                        class="bg-gray-700 hover:bg-gray-600 transition-all">
                         <td class="border border-gray-600 p-3">{{ professor.id }}</td>
                         <td class="border border-gray-600 p-3">{{ professor.name }}</td>
                         <td class="border border-gray-600 p-3">{{ professor.hireDate }}</td>
@@ -34,6 +35,25 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="mt-6 flex items-center justify-center gap-4">
+            <button (click)="previousPage()"
+                class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-full shadow-md transition-all flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                [disabled]="page === 1">
+                <
+            </button>
+
+            <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-lg shadow-md text-sm font-medium">
+                Página {{ page }} de {{ totalPages }}
+            </span>
+
+            <button (click)="nextPage()"
+                class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-full shadow-md transition-all flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                [disabled]="page === totalPages">
+                >
+            </button>
         </div>
 
         <div *ngIf="selectedProfessor" class="bg-gray-700 p-6 rounded-lg mt-6">
@@ -56,12 +76,10 @@
             </select>
 
             <div class="flex justify-center gap-4">
-                <button (click)="updateProfessor()" 
-                    class="bg-green-500 hover:bg-green-400 text-white px-4 py-2 rounded transition-all">
+                <button (click)="updateProfessor()" class="bg-green-500 hover:bg-green-400 text-white px-4 py-2 rounded transition-all">
                     Guardar
                 </button>
-                <button (click)="closeEdit()" 
-                    class="bg-gray-500 hover:bg-gray-400 text-white px-4 py-2 rounded transition-all">
+                <button (click)="closeEdit()" class="bg-gray-500 hover:bg-gray-400 text-white px-4 py-2 rounded transition-all">
                     Cancelar
                 </button>
             </div>

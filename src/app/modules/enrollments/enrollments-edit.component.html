@@ -3,7 +3,8 @@
         <p class="mb-6 text-xl font-bold text-center">Editar Matrícula</p>
         
         <form (ngSubmit)="updateEnrollment()" class="w-full flex flex-col gap-4">
-            <label class="text-sm font-medium">Estudiante</label>
+
+<!--             <label class="text-sm font-medium">Estudiante</label>
             <select [(ngModel)]="enrollment.studentId" name="studentId" required 
                 class="border border-gray-700 p-3 rounded-lg w-full bg-gray-800 focus:ring-2 focus:ring-blue-500">
                 <option value="" disabled selected>Seleccione un estudiante</option>
@@ -23,8 +24,15 @@
 
             <label class="text-sm font-medium">Fecha de Inscripción</label>
             <input type="date" [(ngModel)]="enrollment.enrollmentDate" name="enrollmentDate" required 
+                class="border border-gray-700 p-3 rounded-lg w-full bg-gray-800 focus:ring-2 focus:ring-blue-500" /> -->
+
+            <!-- Nota Final -->
+            <label class="text-sm font-medium">Nota Final</label>
+            <input type="number" [(ngModel)]="enrollment.finalGrade" name="finalGrade" 
+                min="0" max="100" step="0.1" required
                 class="border border-gray-700 p-3 rounded-lg w-full bg-gray-800 focus:ring-2 focus:ring-blue-500" />
 
+            <!-- Botones -->
             <button type="submit" 
                 class="bg-blue-500 hover:bg-blue-400 text-white p-3 rounded-lg w-full font-semibold transition duration-300">
                 Actualizar Matrícula

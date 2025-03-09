@@ -1,27 +1,27 @@
-<div class="max-w-2xl mx-auto mt-10 p-6 bg-gray-950 rounded-lg shadow-lg text-white">
-    <h2 class="text-xl font-semibold mb-6 text-center">Editar Evaluación</h2>
+<div class="max-w-xl mx-auto mt-12 p-8 bg-gray-800 rounded-xl shadow-xl text-white">
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-200">Editar Evaluación</h2>
 
-    <label class="block mb-2 text-gray-300">Nombre de la Evaluación</label>
+    <label class="block mb-2 text-gray-300 font-medium">Nombre de la Evaluación</label>
     <input type="text" [(ngModel)]="assessment.name" 
-        class="border border-gray-700 bg-gray-800 text-white p-3 w-full mb-4 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+        class="border border-gray-700 bg-gray-800 text-white p-3 w-full mb-5 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all duration-200" />
 
-    <label class="block mb-2 text-gray-300">Fecha de la Evaluación</label>
+    <label class="block mb-2 text-gray-300 font-medium">Fecha de la Evaluación</label>
     <input type="date" [(ngModel)]="assessment.date" 
-        class="border border-gray-700 bg-gray-800 text-white p-3 w-full mb-4 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+        class="border border-gray-700 bg-gray-800 text-white p-3 w-full mb-5 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all duration-200" />
 
-    <p class="mb-2 text-sm font-medium text-gray-300">Seleccione el curso:</p>
+<!--     <p class="mb-2 text-sm font-medium text-gray-300">Seleccione el curso:</p>
     <select [(ngModel)]="assessment.courseId" 
-        class="border border-gray-700 bg-gray-800 text-white p-3 w-full mb-4 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+        class="border border-gray-700 bg-gray-800 text-white p-3 w-full mb-5 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all duration-200">
         <option *ngFor="let course of courses" [value]="course.id">{{ course.name }}</option>
-    </select>
+    </select> -->
 
-    <div class="flex justify-end gap-2">
+    <div class="flex justify-end gap-3">
         <button (click)="saveChanges()" 
-            class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-400 transition">
+            class="bg-green-500 text-white px-5 py-3 rounded-lg hover:bg-green-400 transition-all duration-200 shadow-md">
             Guardar
         </button>
         <button (click)="cancel()" 
-            class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-500 transition">
+            class="bg-gray-700 text-white px-5 py-3 rounded-lg hover:bg-gray-600 transition-all duration-200 shadow-md">
             Cancelar
         </button>
     </div>

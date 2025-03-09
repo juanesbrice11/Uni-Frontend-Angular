@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class EditEnrollmentComponent implements OnInit {
     apiUrl = 'http://localhost:3000/enrollments';
-    enrollment = { studentId: '', courseId: '', enrollmentDate: '' };
+    enrollment = { studentId: '', courseId: '', enrollmentDate: '', finalGrade: '' };
     students: any[] = [];
     courses: any[] = [];
     enrollmentId: string | null = null;
@@ -50,7 +50,8 @@ export class EditEnrollmentComponent implements OnInit {
                 this.enrollment = {
                     studentId: data.student.id, 
                     courseId: data.course.id,    
-                    enrollmentDate: data.enrollmentDate
+                    enrollmentDate: data.enrollmentDate,
+                    finalGrade: data.finalGrade
                 };
             },
             error: (error) => {
@@ -97,12 +98,14 @@ export class EditEnrollmentComponent implements OnInit {
         const updatedEnrollment = {
             studentId: this.enrollment.studentId,
             courseId: this.enrollment.courseId,
-            enrollmentDate: this.enrollment.enrollmentDate
+            enrollmentDate: this.enrollment.enrollmentDate,
+            finalGrade: this.enrollment.finalGrade
         };        
     
         this.http.patch(`${this.apiUrl}/${this.enrollmentId}`, updatedEnrollment, this.getHeaders()).subscribe({
             next: () => {
                 alert('Matrícula actualizada con éxito');
+                console.log('Matrícula actualizada con éxito', updatedEnrollment);
                 this.router.navigate(['/enrollments']);
             },
             error: (error) => {

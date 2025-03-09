@@ -1,57 +1,55 @@
-<div class="p-6 bg-gray-950 min-h-screen text-gray-300">
-    <h2 class="text-xl font-semibold mb-4 text-white text-center">Lista de Cursos</h2>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-950 text-white p-6">
+    <h2 class="text-2xl font-semibold mb-6 text-center tracking-wide">Lista de Cursos</h2>
 
-    <div class="overflow-x-auto">
-        <table class="w-full border border-gray-700 text-left bg-gray-800 shadow-lg rounded-lg">
+    <div class="w-full max-w-4xl bg-gray-800 p-6 rounded-lg shadow-lg">
+        <table class="w-full border-collapse text-left rounded-lg overflow-hidden">
             <thead>
-                <tr class="bg-gray-700 text-white">
-                    <th class="border border-gray-700 p-3">ID</th>
-                    <th class="border border-gray-700 p-3">Nombre</th>
-                    <th class="border border-gray-700 p-3">Profesor</th>
-                    <th class="border border-gray-700 p-3">Acciones</th>
+                <tr class="bg-gray-700 text-gray-200 uppercase text-sm">
+                    <th class="p-3 text-center">ID</th>
+                    <th class="p-3 text-center">Nombre</th>
+                    <th class="p-3 text-center">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let course of courses" class="hover:bg-gray-700">
-                    <td class="border border-gray-700 p-3">{{ course.id }}</td>
-                    <td class="border border-gray-700 p-3">{{ course.name }}</td>
-                    <td class="border border-gray-700 p-3">{{ course.professor?.name }}</td>
-                    <td class="border border-gray-700 p-3 flex gap-2">
-                        <button (click)="editCourse(course)" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-400">
-                            <lucide-icon [name]="EditIcon"></lucide-icon>
+                <tr *ngFor="let course of courses | paginate: { itemsPerPage: 5, currentPage: page }"
+                    class="border-b border-gray-700 hover:bg-gray-750 transition text-center">
+                    <td class="p-3">{{ course.courseId }}</td>
+                    <td class="p-3">{{ course.name }}</td>
+                    <td class="p-3 flex justify-center gap-2">
+                        <button (click)="editCourse(course)" 
+                            class="bg-yellow-500 hover:bg-yellow-400 text-white px-3 py-1 rounded-lg shadow-md transition-all">
+                            <lucide-icon name="edit"></lucide-icon>
                         </button>
-                        <button (click)="deleteCourse(course.id)" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500">
-                            <lucide-icon [name]="TrashIcon"></lucide-icon>
+                        <button (click)="deleteCourse(course.id)" 
+                            class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-lg shadow-md transition-all">
+                            <lucide-icon name="trash-2"></lucide-icon>
                         </button>
-                        <button (click)="viewPrerequisites(course.id)" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-500">
-                            <lucide-icon [name]="ListIcon"></lucide-icon>
+                        <button (click)="viewPrerequisites(course.id)" 
+                            class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-lg shadow-md transition-all">
+                            <lucide-icon name="list"></lucide-icon>
                         </button>
-                    </td>
-                </tr>
-
-                <tr *ngIf="selectedCourse">
-                    <td colspan="4">
-                        <div class="bg-gray-800 p-6 rounded-lg mt-4 shadow-lg">
-                            <h3 class="text-lg font-semibold mb-2 text-white">Editar Curso</h3>
-
-                            <label class="block mb-2 text-gray-300">Nombre</label>
-                            <input type="text" [(ngModel)]="selectedCourse.name" class="border border-gray-700 bg-gray-900 text-white p-2 w-full rounded focus:ring-2 focus:ring-blue-500 mb-4" />
-
-                            <label class="block mb-2 text-gray-300">Profesor</label>
-                            <input type="text" [(ngModel)]="selectedCourse.professor" class="border border-gray-700 bg-gray-900 text-white p-2 w-full rounded focus:ring-2 focus:ring-blue-500 mb-4" />
-
-                            <div class="flex justify-end gap-2">
-                                <button (click)="updateCourse(selectedCourse)" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500">
-                                    Guardar
-                                </button>
-                                <button (click)="closeEdit()" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-500">
-                                    Cancelar
-                                </button>
-                            </div>
-                        </div>
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table>    
+
+        <!-- Paginación personalizada -->
+        <div class="mt-6 flex items-center justify-center gap-4">
+            <button (click)="previousPage()"
+                class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-full shadow-md transition-all flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                [disabled]="page === 1">
+                <
+            </button>
+
+            <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-lg shadow-md text-sm font-medium">
+                Página {{ page }} de {{ totalPages }}
+            </span>
+
+            <button (click)="nextPage()"
+                class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-full shadow-md transition-all flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                [disabled]="page === totalPages">
+                >
+            </button>
+        </div>
     </div>
 </div>

@@ -2,7 +2,7 @@
     <p class="mb-6 text-xl font-semibold text-center">Editar Calificación</p>
 
     <form (ngSubmit)="updateGrade()" class="w-80 flex flex-col gap-4">
-        <select [(ngModel)]="grade.studentId" name="studentId" required 
+<!--         <select [(ngModel)]="grade.studentId" name="studentId" required 
             class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="" disabled selected>Seleccione un estudiante</option>
             <option *ngFor="let student of students" [value]="student.id">
@@ -16,7 +16,7 @@
             <option *ngFor="let assessment of assessments" [value]="assessment.id">
                 {{ assessment.name }}
             </option>
-        </select>
+        </select> -->
 
         <input type="number" [(ngModel)]="grade.score" name="score" placeholder="Calificación" required 
             class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-center" />

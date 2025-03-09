@@ -1,29 +1,51 @@
-<div class="flex items-center justify-center min-h-screen p-6 bg-gray-950 text-white">
-    <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-2xl">
-        <p class="mb-6 text-xl font-bold text-center">Lista de Departamentos</p>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-950 text-white p-6">
+    <h2 class="text-2xl font-semibold mb-6 text-center tracking-wide">Lista de Departamentos</h2>
 
-        <table class="w-full border border-gray-700 rounded-lg overflow-hidden">
-            <thead class="bg-gray-700 text-white">
-                <tr>
-                    <th class="px-4 py-3 text-left">ID</th>
-                    <th class="px-4 py-3 text-left">Nombre</th>
-                    <th class="px-4 py-3 text-center">Acciones</th>
+    <div class="w-full max-w-2xl bg-gray-800 p-6 rounded-lg shadow-lg">
+        <table class="w-full border-collapse text-left rounded-lg overflow-hidden">
+            <thead>
+                <tr class="bg-gray-700 text-gray-200 uppercase text-sm">
+                    <th class="p-3 text-center">ID</th>
+                    <th class="p-3 text-center">Nombre</th>
+                    <th class="p-3 text-center">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let department of departments" class="border-b border-gray-600 hover:bg-gray-700 transition">
-                    <td class="px-4 py-3">{{ department.id }}</td>
-                    <td class="px-4 py-3">{{ department.name }}</td>
-                    <td class="px-4 py-3 flex justify-center gap-2">
-                        <button (click)="editDepartment(department.id)" class="bg-yellow-500 hover:bg-yellow-400 text-white px-3 py-2 rounded transition">
+                <tr *ngFor="let department of departments | paginate: { itemsPerPage: 5, currentPage: page }"
+                    class="border-b border-gray-700 hover:bg-gray-750 transition text-center">
+                    <td class="p-3">{{ department.id }}</td>
+                    <td class="p-3">{{ department.name }}</td>
+                    <td class="p-3 flex justify-center gap-2">
+                        <button (click)="editDepartment(department.id)" 
+                            class="bg-yellow-500 hover:bg-yellow-400 text-white px-3 py-1 rounded-lg shadow-md transition-all">
                             <lucide-icon name="edit"></lucide-icon>
                         </button>
-                        <button (click)="deleteDepartment(department.id)" class="bg-red-500 hover:bg-red-400 text-white px-3 py-2 rounded transition">
+                        <button (click)="deleteDepartment(department.id)" 
+                            class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-lg shadow-md transition-all">
                             <lucide-icon name="trash-2"></lucide-icon>
                         </button>
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table>    
+
+        <!-- Paginación personalizada -->
+        <div class="mt-6 flex items-center justify-center gap-4">
+            <button (click)="previousPage()"
+                class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-full shadow-md transition-all flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                [disabled]="page === 1">
+                <
+            </button>
+
+            <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-lg shadow-md text-sm font-medium">
+                Página {{ page }} de {{ totalPages }}
+            </span>
+
+            <button (click)="nextPage()"
+                class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-full shadow-md transition-all flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                [disabled]="page === totalPages">
+                >
+            </button>
+        </div>
     </div>
 </div>
